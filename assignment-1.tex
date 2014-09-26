@@ -32,28 +32,27 @@
 %%%%	   these all work well with lower-case letters,
 %%%%	        but only so-so with upper-case letters
 %%%%
-  \def\myname{Doe, Smith, and Wilson}
+  \def\myname{Liu, Nimier-David, and Sapkota}
 
 %%%% REPLACE xxx WITH CORRECT HOMEWORK NUMBER
 %  \def\mynumber{xxx}
-  \def\mynumber{8}
+  \def\mynumber{1}
 
   \newcounter{problems}
 %%%% REPLACE yyy WITH CORRECT NUMBER OF PROBLEMS IN HOMEWORK
 %%%% yyy SHOULD BE A NUMBER BETWEEN 4 AND 7
 %  \setcounter{problems}{yyy}
-  \setcounter{problems}{5}
+  \setcounter{problems}{4}
 
 %%%% IF ADDITIONAL PACKAGES ARE NEEDED, UNCOMMENT LINE BELOW
 %%%% AND ENTER THE PACKAGE NAMES
 %  \usepackage{additional_package_1,additional_package_2}
 
 
-
 % DO NOT MODIFY THE REST OF THE FILE
 %%%% Recursive functions
   \def\tableformat#1{
-    |c  
+    |c
     \ifnum#1<\theproblems
       \tableformat{\number\numexpr#1+1}
     \fi
@@ -63,7 +62,7 @@
     \ifnum#1<\theproblems
       Prob.~#1 &
       \tablecontent{\number\numexpr#1+1}
-    \fi 
+    \fi
     \ifnum#1=\theproblems
       Prob.~#1
     \fi

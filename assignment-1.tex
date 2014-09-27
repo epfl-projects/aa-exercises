@@ -48,7 +48,6 @@
 %%%% AND ENTER THE PACKAGE NAMES
 %  \usepackage{additional_package_1,additional_package_2}
 
-
 % DO NOT MODIFY THE REST OF THE FILE
 %%%% Recursive functions
   \def\tableformat#1{
@@ -78,7 +77,10 @@
   \def\problemscontent#1{
     \ifnum#1>\theproblems\else
       \ifnum#1>1\newpage\fi
+
       \addtocounter{problem}{1}
+      \setcounter{section}{0}
+
       \begin{flushleft}
         \large\sf Problem \theproblem .
       \end{flushleft}

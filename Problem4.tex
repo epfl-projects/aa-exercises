@@ -22,7 +22,29 @@ We then perform 7 \texttt{pop} operations and obtain:
 \]
 
 \section{Worst-case complexity}
-  \subsection{Insert}
-  \subsection{Delete}
+Let $n$ be the current number of elements in an infinite stack $S$.
+
+  \subsection{\texttt{push}}
+  The worst-case for insertion occurs when all stacks $S_0\ldots S_m$ are full, i.e. each stack $S_i$ contains $2^i$ elements. Pushing thus triggers an overflow of all stacks. The cost of an overflow of stack $S_i$ is $2^i$ \texttt{pop} operations and $2^i$ \texttt{push} operations on the next stack $S_{i+1}$.\\
+  For this configuration to happen, we must have:
+
+  \[
+  \begin{array}{lccl}
+    & n & = & \sum_{i=0}^m 2^i = 2^m - 1\\
+    \iff & m & = & log_2(n + 1)
+  \end{array}
+  \]
+
+  Thus the worst-case cost of \texttt{push} amounts to:
+
+  \[
+  \begin{array}{ll}
+    C_{push} & = \sum_{i=0}^m k_{push} 2^i + \sum_{i=0}^m k_{pop} 2^i + 1\\
+             & \leq 2 \text{max}(k_{push}, k_{pop}) * \sum_{i=0}^m 2^i\\
+             & = 2 k_{\text{max}} n\\
+             & = O(n)
+  \end{array}
+  \]
+
 
 \section{\texttt{push} and \texttt{pop} cannot be amortized to constant time}

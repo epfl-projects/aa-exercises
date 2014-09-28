@@ -6,61 +6,59 @@ Assume allocating a new array with $n$ cells takes time $kn$, and deleting an ar
 \Phi = | occupied(a) - free(a) | * (1 + 2k)
 \end{equation}
 
-\begin{enumerate}
+\section{Amortized performance}
 
-\item \textbf{Array Halving}. It's easy to calculate the potential before and after the operation:
+  \subsection{Array Halving}
+  It's easy to calculate the potential before and after the operation:
+  \[
+  \begin{array}{lcl}
+    \Phi_{before} & = & | n - 3n | \times (1 + 2k) = 2n \times (1 + 2k) \\
+    \Phi_{after} & = & | n - n | \times (1 + 2k) = 0
+  \end{array}
+  \]
 
-\[
-\begin{array}{lcl}
-  \Phi_{before} & = & | n - 3n | \times (1 + 2k) = 2n \times (1 + 2k) \\
-  \Phi_{after} & = & | n - n | \times (1 + 2k) = 0
-\end{array}
-\]
 
-The real cost of the operation is as follows:
+  The real cost of the operation is as follows:
+  \[
+  C_{real} = n + 2kn + T_{del} + 1
+  \]
 
-\[
-C_{real} = n + 2kn + T_{del} + 1
-\]
 
-Thus, we can derive the amortized cost of array halving:
+  Thus, we can derive the amortized cost of array halving:
+  \[
+  \begin{array}{lcl}
+  \hat C & = & C_{real} + \Delta \Phi \\
+         & < & 2 C_{real} + \Delta \Phi \\
+         & = & 2(n + 2kn + T_{del} + 1) + 0 - 2n \times (1 + 2k) \\
+         & = & 2T_{del} + 2 \\
+         & = & O(1)
+  \end{array}
+  \]
 
-\[
-\begin{array}{lcl}
-\hat C & = & C_{real} + \Delta \Phi \\
-       & < & 2 C_{real} + \Delta \Phi \\
-       & = & 2(n + 2kn + T_{del} + 1) + 0 - 2n \times (1 + 2k) \\
-       & = & 2T_{del} + 2 \\
-       & = & O(1)
-\end{array}
-\]
+  \subsection{Array Doubling}
+  The potential before and after the operation are as follows:
+  \[
+  \begin{array}{lcl}
+    \Phi_{before} & = & | n - 0 | \times (1 + 2k) = n \times (1 + 2k) \\
+    \Phi_{after} & = & | n - n | \times (1 + 2k) = 0
+  \end{array}
+  \]
 
-\item \textbf{Array Doubling}. The potential before and after the operation are as follows:
+  The real cost of the operation is as follows:
+  \[
+  C_{real} = n + 2kn + T_{del} + 1
+  \]
 
-\[
-\begin{array}{lcl}
-  \Phi_{before} & = & | n - 0 | \times (1 + 2k) = n \times (1 + 2k) \\
-  \Phi_{after} & = & | n - n | \times (1 + 2k) = 0
-\end{array}
-\]
+  Thus, we can derive the amortized cost of array halving:
+  \[
+  \begin{array}{lcl}
+  \hat C & = & C_{real} + \Delta \Phi \\
+         & = & n + 2kn + T_{del} + 1 + 0 - n \times (1 + 2k) \\
+         & = & T_{del} + 1 \\
+         & = & O(1)
+  \end{array}
+  \]
 
-The real cost of the operation is as follows:
-
-\[
-C_{real} = n + 2kn + T_{del} + 1
-\]
-
-Thus, we can derive the amortized cost of array halving:
-
-\[
-\begin{array}{lcl}
-\hat C & = & C_{real} + \Delta \Phi \\
-       & = & n + 2kn + T_{del} + 1 + 0 - n \times (1 + 2k) \\
-       & = & T_{del} + 1 \\
-       & = & O(1)
-\end{array}
-\]
-
-\item \textbf{Why not halve the array as soon as the number of elements falls below one half of the allocated size?} It can be calculated that $\Delta \Phi = 0$ and $C_{real} = n + nk + T_{del} + 1$. In such case, it's obvious that the amortized cost of this operation is not constant.
-
-\end{enumerate}
+\section{Halving criterion}
+  \textbf{Why not halve the array as soon as the number of elements falls below one half of the allocated size?}
+  It can be calculated that $\Delta \Phi = 0$ and $C_{real} = n + nk + T_{del} + 1$. In such case, it's obvious that the amortized cost of this operation is not constant.

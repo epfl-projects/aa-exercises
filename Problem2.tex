@@ -65,4 +65,6 @@ Assume allocating a new array with $n$ cells takes time $k \cdot n$, and deletin
 
 \section{Halving criterion}
   \textbf{Why not halve the array as soon as the number of elements falls below one half of the allocated size?}
-  It can be calculated that $\Delta \Phi = n \cdot (2k + 1)$ and $C_{real} = n + nk + T_{del} + 1$. In such case, it's obvious that the amortized cost of this operation is not constant.
+  It can be calculated that $\Delta \Phi = n \cdot (2k + 1)$ and $C_{real} = n + nk + T_{del} + 1$. In such case, it's obvious that the amortized cost of this operation is not constant. \\ 
+  Halving the array as soon as the number of elements falls below one half creates a problem called thrashing. Thrashing occurs when the array increases or decreases its size frequently. Say the array is halved as soon as the number of elements falls below one half and the subsequent operation is insertion. In that case the array will have to immediately resize back to the same size which could have been avoided if the halving was done after the number of elements went below one quarter the size.
+

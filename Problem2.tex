@@ -3,7 +3,7 @@ Let $a$ be an array, $occupied(a)$ be the number of occupied cells in the array,
 Assume allocating a new array with $n$ cells takes time $kn$, and deleting an array takes constant time $T_{del}$. We define the potential function of an array $a$ as:
 
 \begin{equation}
-\Phi(a) = | occupied(a) - free(a) | \times (1 + 2k)
+\Phi(a) = | occupied(a) - free(a) | \cdot (1 + 2k)
 \end{equation}
 
 \section{Amortized performance}
@@ -11,9 +11,10 @@ Assume allocating a new array with $n$ cells takes time $kn$, and deleting an ar
   \subsection{Array Halving}
   It's easy to calculate the potential before and after the operation:
   \[
+  \def\arraystretch{1.5}
   \begin{array}{lcl}
-    \Phi_{before} & = & | n - 3n | \times (1 + 2k) = 2n \times (1 + 2k) \\
-    \Phi_{after} & = & | n - n | \times (1 + 2k) = 0
+    \Phi_{before} & = & | n - 3n | \cdot (1 + 2k) = 2n \cdot (1 + 2k) \\
+    \Phi_{after} & = & | n - n | \cdot (1 + 2k) = 0
   \end{array}
   \]
 
@@ -26,10 +27,11 @@ Assume allocating a new array with $n$ cells takes time $kn$, and deleting an ar
 
   Thus, we can derive the amortized cost of array halving:
   \[
+  \def\arraystretch{1.5}
   \begin{array}{lcl}
   \hat C & = & C_{real} + \Delta \Phi \\
          & < & 2 C_{real} + \Delta \Phi \\
-         & = & 2(n + 2kn + T_{del} + 1) + 0 - 2n \times (1 + 2k) \\
+         & = & 2(n + 2kn + T_{del} + 1) + 0 - 2n \cdot (1 + 2k) \\
          & = & 2T_{del} + 2 \\
          & = & O(1)
   \end{array}
@@ -38,9 +40,10 @@ Assume allocating a new array with $n$ cells takes time $kn$, and deleting an ar
   \subsection{Array Doubling}
   The potential before and after the operation are as follows:
   \[
+  \def\arraystretch{1.5}
   \begin{array}{lcl}
-    \Phi_{before} & = & | n - 0 | \times (1 + 2k) = n \times (1 + 2k) \\
-    \Phi_{after} & = & | n - n | \times (1 + 2k) = 0
+    \Phi_{before} & = & | n - 0 | \cdot (1 + 2k) = n \cdot (1 + 2k) \\
+    \Phi_{after} & = & | n - n | \cdot (1 + 2k) = 0
   \end{array}
   \]
 
@@ -51,9 +54,10 @@ Assume allocating a new array with $n$ cells takes time $kn$, and deleting an ar
 
   Thus, we can derive the amortized cost of array doubling:
   \[
+  \def\arraystretch{1.5}
   \begin{array}{lcl}
   \hat C & = & C_{real} + \Delta \Phi \\
-         & = & n + 2kn + T_{del} + 1 + 0 - n \times (1 + 2k) \\
+         & = & n + 2kn + T_{del} + 1 + 0 - n \cdot (1 + 2k) \\
          & = & T_{del} + 1 \\
          & = & O(1)
   \end{array}

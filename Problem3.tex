@@ -1,10 +1,59 @@
-TODO: problem 3
-
-Let $n$ the number of elements in the queue. We denote $lg(n) = log_2(n)$.
+Let $n$ be the size of the queue. As the cost of \textit{delete-min} is $O(log(n))$, so $\exists c, N_0 \in N, \forall n > N_0$, such that $C_{delete-min} \leq c \cdot log(n)$. Then we define the potential function as below:
 
 \[
-\Phi = n * lg(n)
+\Phi = c \cdot n \cdot log(n)
 \]
 
 \section{Amortized performance of \texttt{insert}}
+
+It's easy to calculate the potential change for an \textit{insert} operation:
+
+\[
+\def\arraystretch{1.5}
+\begin{array}{lcl}
+  \Delta \Phi & = & c \cdot (n + 1) \cdot log(n + 1) - c \cdot n \cdot log(n) \\
+              % & = & c \cdot log(n + 1)^{n + 1} - c \cdot log(n^n) \\
+              & = & c \cdot log\frac{(n + 1)^n \cdot (n + 1)}{n^n} \\
+              & = & c \cdot log(1 + \frac{1}{n})^n + c \cdot log(n + 1) \\
+              & < & c \cdot log(e) + c \cdot log(n + 1) \\
+              & = & O(log(n))
+\end{array}
+\]
+
+So that the amortized cost of an \textit{insert} operation is as following:
+
+\[
+\def\arraystretch{1.5}
+\begin{array}{lcl}
+\hat C & = & C_{real} + \Delta \Phi \\
+       & = & O(log(n)) + O(log(n)) \\
+       & = & O(log(n))
+\end{array}
+\]
+
 \section{Amortized performance of \texttt{delete-min}}
+
+The potential change for an \textit{delete-min} operation is as following:
+
+\[
+\def\arraystretch{1.5}
+\begin{array}{lcl}
+  \Delta \Phi & = & c \cdot (n - 1) \cdot log(n - 1) - c \cdot n \cdot log(n) \\
+              & < & c \cdot (n - 1) \cdot log(n) - c \cdot n \cdot log(n) \\
+              & = & - c \cdot log(n)
+\end{array}
+\]
+
+We already know the real cost of \texttt{delete-min} $C_{real}$ is less or equal than $c \cdot log(n)$ if $n > N_{0}$. Under the same condition we have:
+
+\[
+\def\arraystretch{1.5}
+\begin{array}{lcl}
+\hat C & = & C_{real} + \Delta \Phi \\
+       & < & c \cdot log(n) + (- c \cdot log(n)) \\
+       & = & 0
+\end{array}
+\]
+
+The formula above means, $\forall n > N_0$, we have $\hat C < 0$. Thus $\hat C = O(1)$.
+

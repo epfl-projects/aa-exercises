@@ -25,6 +25,7 @@ We then perform 7 \texttt{pop} operations and obtain:
 Let $n$ be the current number of elements in an infinite stack $S$.
 
   \subsection{\texttt{push}}
+  \label{worst-case-push}
   The worst-case for insertion occurs when all stacks $S_0\ldots S_m$ are full, i.e. each stack $S_i$ contains $2^i$ elements. Pushing thus triggers an overflow of all stacks. The cost of an overflow of stack $S_i$ is $2^i$ \texttt{pop} operations and $2^i$ \texttt{push} operations to the next stack $S_{i+1}$.\\
   For this configuration to happen, we must have:
 
@@ -32,6 +33,7 @@ Let $n$ be the current number of elements in an infinite stack $S$.
     n = \sum_{i=0}^m 2^i = 2^m - 1
   \]
 
+  The worst-case cost of \texttt{push} amounts to:
 
   \[
   \begin{array}{ll}
@@ -57,3 +59,25 @@ Let $n$ be the current number of elements in an infinite stack $S$.
   \]
 
 \section{\texttt{push} and \texttt{pop} cannot be amortized to constant time}
+
+Let us show that the operations \texttt{push} and \texttt{pop} of the infinite stack cannot be amortized to constant time. Let $\Phi$ any potential function. If the operations could be amortized to $O(1)$, then for all sequences of operations, we would have: $\exists \alpha$ such that
+
+\[
+\begin{array}{lrcl}
+  & \sum C_{real} + \sum \Delta\Phi & \leq \sum \alpha \\
+  \iff & C_{sequence} + \Phi_{final} - \Phi_{initial} & \leq \alpha n
+\end{array}
+\]
+
+Let $S$ an infinite stack containing $n$ elements in the initial configuration the worst-case described in section \ref{worst-case-push}.\\
+We perform the following sequence of operations: \texttt{push} followed by \texttt{pop}, repeated $n$ times. As described earlier, the \texttt{push} operations trigger overflows amounting to total cost $O(n)$ and the \texttt{pop} operations trigger refills amounting to total cost $O(n)$. Since we perform $n$ such operations, we obtain $C_{sequence} = O(n^2)$. The complete sequence returns the data structure in its initial state, so that $\Delta\Phi_{sequence} = 0$.\\
+Finally, we obtain:
+
+\[
+\begin{array}{rl}
+  C_{sequence} + \Phi_{final} - \Phi_{initial} & = O(n^2) + 0 \\
+   & \geq \alpha n, \forall \alpha
+\end{array}
+\]
+
+Which shows that the operations cannot be amortized to constant time regardless of the potential function chosen.

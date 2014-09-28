@@ -1,6 +1,6 @@
 Let $a$ be an array, $occupied(a)$ be the number of occupied cells in the array, $free(a)$ be the number of free cells in the array.
 
-Assume allocating a new array with $n$ cells takes time $kn$, and deleting an array takes constant time $T_{del}$. We define the potential function of an array $a$ as:
+Assume allocating a new array with $n$ cells takes time $k \cdot n$, and deleting an array takes constant time $T_{del}$. We define the potential function of an array $a$ as:
 
 \begin{equation}
 \Phi(a) = | occupied(a) - free(a) | \cdot (1 + 2k)
@@ -65,4 +65,4 @@ Assume allocating a new array with $n$ cells takes time $kn$, and deleting an ar
 
 \section{Halving criterion}
   \textbf{Why not halve the array as soon as the number of elements falls below one half of the allocated size?}
-  It can be calculated that $\Delta \Phi = 0$ and $C_{real} = n + nk + T_{del} + 1$. In such case, it's obvious that the amortized cost of this operation is not constant.
+  It can be calculated that $\Delta \Phi = n \cdot (2k + 1)$ and $C_{real} = n + nk + T_{del} + 1$. In such case, it's obvious that the amortized cost of this operation is not constant.

@@ -30,7 +30,7 @@ Let $n$ be the current number of elements in an infinite stack $S$.
   For this configuration to happen, we must have:
 
   \[
-    n = \sum_{i=0}^m 2^i = 2^m - 1
+    n = \sum_{i=0}^m 2^i = 2^{m+1} - 1
   \]
 
   The worst-case cost of \texttt{push} amounts to:
@@ -51,16 +51,20 @@ Let $n$ be the current number of elements in an infinite stack $S$.
 
   \[
   \begin{array}{ll}
-    C_{pop} & = \sum_{i=0}^m k_{push} 2^{i-1} + \sum_{i=0}^m k_{pop} 2^{i-1} + 1\\
-            & \leq \text{max}(k_{push}, k_{pop}) * \sum_{i=0}^m 2^i + 1\\
-            & = k_{\text{max}} n + 1\\
+    C_{pop} & = \sum_{i=1}^m k_{push} 2^{i-1} + \sum_{i=1}^m k_{pop} 2^{i-1} + 1\\
+            & \leq \text{max}(k_{push}, k_{pop}) * \sum_{i=1}^m 2 * 2^{i-1} + 1\\
+            & = k_{\text{max}} * \sum_{i=0}^m 2^{i}\\
+            & = k_{\text{max}} n\\
             & = O(n)
   \end{array}
   \]
 
 \section{\texttt{push} and \texttt{pop} cannot be amortized to constant time}
 
-Let us show that the operations \texttt{push} and \texttt{pop} of the infinite stack cannot be amortized to constant time. Let $\Phi$ any potential function. If the operations could be amortized to $O(1)$, then for all sequences of operations, we would have: $\exists \alpha$ such that
+\textbf{Proposition:} The operations \texttt{push} and \texttt{pop} of the infinite stack cannot be amortized to constant time.\\
+
+We will use a proof by contradiction, showing that the above equation doesn't hold for a particular initial configuration and sequence of operations.\\
+Let $\Phi$ any potential function. If the operations could be amortized to $O(1)$, then for all sequences of operations, we would have: $\exists \alpha$ such that
 
 \[
 \begin{array}{lrcl}
@@ -75,8 +79,9 @@ Finally, we obtain:
 
 \[
 \begin{array}{rl}
-  C_{sequence} + \Phi_{final} - \Phi_{initial} & = O(n^2) + 0 \\
-   & \geq \alpha n, \forall \alpha
+  C_{sequence} + \Phi_{final} - \Phi_{initial} & = n * (k_{push}n + k_{pop}n) + 0 \\
+   & \geq \text{min}(k_{push}, k_{pop}) n^2 \\
+   & \geq \alpha n, \forall \alpha \text{ and } \forall n > N_0
 \end{array}
 \]
 

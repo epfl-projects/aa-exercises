@@ -3,7 +3,7 @@ Let $a$ be an array, $occupied(a)$ be the number of occupied cells in the array,
 Assume allocating a new array with $n$ cells takes time $kn$, and deleting an array takes constant time $T_{del}$. We define the potential function of an array $a$ as:
 
 \begin{equation}
-\Phi = | occupied(a) - free(a) | * (1 + 2k)
+\Phi(a) = | occupied(a) - free(a) | \times (1 + 2k)
 \end{equation}
 
 \section{Amortized performance}
@@ -49,7 +49,7 @@ Assume allocating a new array with $n$ cells takes time $kn$, and deleting an ar
   C_{real} = n + 2kn + T_{del} + 1
   \]
 
-  Thus, we can derive the amortized cost of array halving:
+  Thus, we can derive the amortized cost of array doubling:
   \[
   \begin{array}{lcl}
   \hat C & = & C_{real} + \Delta \Phi \\

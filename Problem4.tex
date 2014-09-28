@@ -64,24 +64,27 @@ Let $n$ be the current number of elements in an infinite stack $S$.
 \textbf{Proposition:} The operations \texttt{push} and \texttt{pop} of the infinite stack cannot be amortized to constant time.\\
 
 We will use a proof by contradiction, showing that the above equation doesn't hold for a particular initial configuration and sequence of operations.\\
-Let $\Phi$ any potential function. If the operations could be amortized to $O(1)$, then for all sequences of operations, we would have: $\exists \alpha$ such that
+
+Let $\Phi$ any potential function. If the operations could be amortized to $O(1)$, then for any sequences of $n$ operations, we would have:
 
 \[
 \begin{array}{lrcl}
-  & \sum C_{real} + \sum \Delta\Phi & \leq \sum \alpha \\
-  \iff & C_{sequence} + \Phi_{final} - \Phi_{initial} & \leq \alpha n
+  & \sum C_{real} + \sum \Delta\Phi & = O(n) \\
+  \iff & C_{sequence} + \Phi_{final} - \Phi_{initial} & = O(n)
 \end{array}
 \]
 
-Let $S$ an infinite stack containing $n$ elements in the initial configuration the worst-case described in section \ref{worst-case-push}.\\
-We perform the following sequence of operations: \texttt{push} followed by \texttt{pop}, repeated $n$ times. As described earlier, the \texttt{push} operations trigger overflows amounting to total cost $O(n)$ and the \texttt{pop} operations trigger refills amounting to total cost $O(n)$. Since we perform $n$ such operations, we obtain $C_{sequence} = O(n^2)$. The complete sequence returns the data structure in its initial state, so that $\Delta\Phi_{sequence} = 0$.\\
+Let $S$ an infinite stack containing $n$ elements with the initial configuration as described in section \ref{worst-case-push}.\\
+
+We perform the following sequence of operations: \texttt{push} followed by \texttt{pop}, repeated $n$ times. As described earlier, the worst-case \texttt{push} and the worst-case \texttt{pop} both have a real cost of $k \cdot n$ where $k$ is a constant. Since we perform $n$ pairs of such operations, we obtain $C_{sequence} = 2k \cdot n^2$. The complete sequence returns the data structure in its initial state, so that $\Delta\Phi_{sequence} = 0$.\\
+
 Finally, we obtain:
 
 \[
 \begin{array}{rl}
-  C_{sequence} + \Phi_{final} - \Phi_{initial} & = n * (k_{push}n + k_{pop}n) + 0 \\
-   & \geq \text{min}(k_{push}, k_{pop}) n^2 \\
-   & \geq \alpha n, \forall \alpha \text{ and } \forall n > N_0
+  C_{sequence} + \Phi_{final} - \Phi_{initial} & = 2k \cdot n^2 \\
+   & = \Theta (n^2) \\
+   & \neq O(n)
 \end{array}
 \]
 

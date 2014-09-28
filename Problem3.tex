@@ -1,4 +1,4 @@
-Let $n$ be the size of the queue. As the cost of \textit{delete-min} is $O(log(n))$, so $\exists c, N_0 \in N, \forall n > N_0$, such that $C_{delete-min} \leq c \cdot log(n)$. Then we define the potential function as below:
+Let $n$ be the size of the queue. As the cost of \texttt{delete-min} is $O(log(n))$, so $\exists c, N_0 \in N$ such that $\forall n > N_0, C_{delete-min} \leq c \cdot log(n)$. Then we define the potential function as below:
 
 \[
 \Phi = c \cdot n \cdot log(n)
@@ -6,21 +6,21 @@ Let $n$ be the size of the queue. As the cost of \textit{delete-min} is $O(log(n
 
 \section{Amortized performance of \texttt{insert}}
 
-It's easy to calculate the potential change for an \textit{insert} operation:
+We compute the potential change for an \texttt{insert} operation:
 
 \[
 \def\arraystretch{1.5}
 \begin{array}{lcl}
   \Delta \Phi & = & c \cdot (n + 1) \cdot log(n + 1) - c \cdot n \cdot log(n) \\
-              % & = & c \cdot log(n + 1)^{n + 1} - c \cdot log(n^n) \\
-              & = & c \cdot log\frac{(n + 1)^n \cdot (n + 1)}{n^n} \\
-              & = & c \cdot log(1 + \frac{1}{n})^n + c \cdot log(n + 1) \\
-              & < & c \cdot log(e) + c \cdot log(n + 1) \\
+              & = & c \cdot log((n + 1)^{n + 1}) - c \cdot log(n^n) \\
+              & = & c \cdot log((n + 1) \cdot \frac{ (n + 1)^n}{n^n}) \\
+              & = & c \cdot log((1 + \frac{1}{n})^n) + c \cdot log(n + 1) \\
+              & \leq & c \cdot log(e) + c \cdot log(n + 1) \\
               & = & O(log(n))
 \end{array}
 \]
 
-So that the amortized cost of an \textit{insert} operation is as following:
+So that the amortized cost of an \texttt{insert} operation is as follows:
 
 \[
 \def\arraystretch{1.5}
@@ -33,13 +33,13 @@ So that the amortized cost of an \textit{insert} operation is as following:
 
 \section{Amortized performance of \texttt{delete-min}}
 
-The potential change for an \textit{delete-min} operation is as following:
+The potential change for an \texttt{delete-min} operation is as follows:
 
 \[
 \def\arraystretch{1.5}
 \begin{array}{lcl}
   \Delta \Phi & = & c \cdot (n - 1) \cdot log(n - 1) - c \cdot n \cdot log(n) \\
-              & < & c \cdot (n - 1) \cdot log(n) - c \cdot n \cdot log(n) \\
+              & \leq & c \cdot (n - 1) \cdot log(n) - c \cdot n \cdot log(n) \\
               & = & - c \cdot log(n)
 \end{array}
 \]
@@ -50,10 +50,10 @@ We already know the real cost of \texttt{delete-min} $C_{real}$ is less or equal
 \def\arraystretch{1.5}
 \begin{array}{lcl}
 \hat C & = & C_{real} + \Delta \Phi \\
-       & < & c \cdot log(n) + (- c \cdot log(n)) \\
+       & \leq & c \cdot log(n) + (- c \cdot log(n)) \\
        & = & 0
 \end{array}
 \]
 
-The formula above means, $\forall n > N_0$, we have $\hat C < 0$. Thus $\hat C = O(1)$.
+The formula above means, $\forall n > N_0$, we have $\hat C \leq 0$. Thus $\hat C = O(1)$.
 

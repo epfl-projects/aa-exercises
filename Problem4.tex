@@ -25,26 +25,35 @@ We then perform 7 \texttt{pop} operations and obtain:
 Let $n$ be the current number of elements in an infinite stack $S$.
 
   \subsection{\texttt{push}}
-  The worst-case for insertion occurs when all stacks $S_0\ldots S_m$ are full, i.e. each stack $S_i$ contains $2^i$ elements. Pushing thus triggers an overflow of all stacks. The cost of an overflow of stack $S_i$ is $2^i$ \texttt{pop} operations and $2^i$ \texttt{push} operations on the next stack $S_{i+1}$.\\
+  The worst-case for insertion occurs when all stacks $S_0\ldots S_m$ are full, i.e. each stack $S_i$ contains $2^i$ elements. Pushing thus triggers an overflow of all stacks. The cost of an overflow of stack $S_i$ is $2^i$ \texttt{pop} operations and $2^i$ \texttt{push} operations to the next stack $S_{i+1}$.\\
   For this configuration to happen, we must have:
 
   \[
-  \begin{array}{lccl}
-    & n & = & \sum_{i=0}^m 2^i = 2^m - 1\\
-    \iff & m & = & log_2(n + 1)
-  \end{array}
+    n = \sum_{i=0}^m 2^i = 2^m - 1
   \]
 
-  Thus the worst-case cost of \texttt{push} amounts to:
 
   \[
   \begin{array}{ll}
     C_{push} & = \sum_{i=0}^m k_{push} 2^i + \sum_{i=0}^m k_{pop} 2^i + 1\\
-             & \leq 2 \text{max}(k_{push}, k_{pop}) * \sum_{i=0}^m 2^i\\
-             & = 2 k_{\text{max}} n\\
+             & \leq 2 * \text{max}(k_{push}, k_{pop}) * \sum_{i=0}^m 2^i + 1\\
+             & = 2 k_{\text{max}} n + 1\\
              & = O(n)
   \end{array}
   \]
 
+  \subsection{\texttt{pop}}
+  Similarly, the worst-case for deletion occurs when stacks $S_0$ has one element and stacks $S_1\ldots S_m$ each contains $2^{i-1}$ elements. Poping leads $S_0$ to being empty and refill from $S_1$, which in turn becomes empty and must refill from $S_2$, and so on. The cost of refilling stack $S_i$ from stack $S_{i+1}$ is $2^i$ \texttt{pop} operations and $2^i$ \texttt{push} operations.
+
+  The worst-case cost of \texttt{push} amounts to:
+
+  \[
+  \begin{array}{ll}
+    C_{pop} & = \sum_{i=0}^m k_{push} 2^{i-1} + \sum_{i=0}^m k_{pop} 2^{i-1} + 1\\
+            & \leq \text{max}(k_{push}, k_{pop}) * \sum_{i=0}^m 2^i + 1\\
+            & = k_{\text{max}} n + 1\\
+            & = O(n)
+  \end{array}
+  \]
 
 \section{\texttt{push} and \texttt{pop} cannot be amortized to constant time}

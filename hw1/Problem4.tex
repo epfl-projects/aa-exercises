@@ -1,0 +1,91 @@
+\section{Example usage of an infinite stack}
+Starting with an empty infinite stack $S = S_0, S_1, S_2, \ldots$, we \texttt{push} the 15 elements $1, 2, 3,\ldots, 15$. We obtain the following configuration (top of the stack to the right):
+
+\[
+\begin{array}{lcccccccccc}
+  S_0 & = & 15\\
+  S_1 & = & 13 & 14\\
+  S_2 & = & 10 & 9 & 12 & 11\\
+  S_3 & = & 3 & 4 & 1 & 2 & 7 & 8 & 5 & 6
+\end{array}
+\]
+
+We then perform 7 \texttt{pop} operations and obtain:
+
+\[
+\begin{array}{lcccccccccc}
+  S_0 & = & 8\\
+  S_1 & = & 7\\
+  S_2 & = & 6 & 5 &\\
+  S_3 & = & 3 & 4 & 1 & 2
+\end{array}
+\]
+
+\section{Worst-case complexity}
+Let $n$ be the current number of elements in an infinite stack $S$.
+
+  \subsection{\texttt{push}}
+  \label{worst-case-push}
+  The worst-case for insertion occurs when all stacks $S_0\ldots S_m$ are full, i.e. each stack $S_i$ contains $2^i$ elements. Pushing thus triggers an overflow of all stacks. The cost of an overflow of stack $S_i$ is $2^i$ \texttt{pop} operations and $2^i$ \texttt{push} operations to the next stack $S_{i+1}$.\\
+  For this configuration to happen, we must have:
+
+  \[
+    n = \sum_{i=0}^m 2^i = 2^{m+1} - 1
+  \]
+
+  The worst-case cost of \texttt{push} amounts to:
+
+  \[
+  \begin{array}{ll}
+    C_{push} & = \sum_{i=0}^m k_{push} 2^i + \sum_{i=0}^m k_{pop} 2^i + 1\\
+             & \leq 2 * \text{max}(k_{push}, k_{pop}) * \sum_{i=0}^m 2^i + 1\\
+             & = 2 k_{\text{max}} n + 1\\
+             & = O(n)
+  \end{array}
+  \]
+
+  \subsection{\texttt{pop}}
+  Similarly, the worst-case for deletion occurs when stacks $S_0$ has one element and stacks $S_1\ldots S_m$ each contains $2^{i-1}$ elements. Poping leads $S_0$ to being empty and refill from $S_1$, which in turn becomes empty and must refill from $S_2$, and so on. The cost of refilling stack $S_i$ from stack $S_{i+1}$ is $2^i$ \texttt{pop} operations and $2^i$ \texttt{push} operations.
+
+  The worst-case cost of \texttt{push} amounts to:
+
+  \[
+  \begin{array}{ll}
+    C_{pop} & = \sum_{i=1}^m k_{push} 2^{i-1} + \sum_{i=1}^m k_{pop} 2^{i-1} + 1\\
+            & \leq \text{max}(k_{push}, k_{pop}) * \sum_{i=1}^m 2 * 2^{i-1} + 1\\
+            & = k_{\text{max}} * \sum_{i=0}^m 2^{i}\\
+            & = k_{\text{max}} n\\
+            & = O(n)
+  \end{array}
+  \]
+
+\section{\texttt{push} and \texttt{pop} cannot be amortized to constant time}
+
+\textbf{Proposition:} The operations \texttt{push} and \texttt{pop} of the infinite stack cannot be amortized to constant time.\\
+
+We will use a proof by contradiction, showing that the above equation doesn't hold for a particular initial configuration and sequence of operations.\\
+
+Let $\Phi$ any potential function. If the operations could be amortized to $O(1)$, then for any sequences of $n$ operations, we would have:
+
+\[
+\begin{array}{lrcl}
+  & \sum C_{real} + \sum \Delta\Phi & = O(n) \\
+  \iff & C_{sequence} + \Phi_{final} - \Phi_{initial} & = O(n)
+\end{array}
+\]
+
+Let $S$ an infinite stack containing $n$ elements with the initial configuration as described in section \ref{worst-case-push}.\\
+
+We perform the following sequence of operations: \texttt{push} followed by \texttt{pop}, repeated $n$ times. As described earlier, the worst-case \texttt{push} and the worst-case \texttt{pop} both have a real cost of $k \cdot n$ where $k$ is a constant. Since we perform $n$ pairs of such operations, we obtain $C_{sequence} = 2k \cdot n^2$. The complete sequence returns the data structure in its initial state, so that $\Delta\Phi_{sequence} = 0$.\\
+
+Finally, we obtain:
+
+\[
+\begin{array}{rl}
+  C_{sequence} + \Phi_{final} - \Phi_{initial} & = 2k \cdot n^2 \\
+   & = \Theta (n^2) \\
+   & \neq O(n)
+\end{array}
+\]
+
+Which shows that the operations cannot be amortized to constant time regardless of the potential function chosen.

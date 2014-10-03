@@ -38,25 +38,25 @@ We compare the performance analysis below:
 So our strategy is at most 2 times worse than the optimal strategy.
 
 cost
-
-      ^
-      |
-      |
-4N    |             ***************
-      |             *
-      |             *
-2N    |  ************ ______________
-      |  *           /
-      |  *          /
-N     |  * ________/
-      |  */
-      | */
-      |*/---------------------------> k
-          N      2N  3N
+      
+            ^
+            |
+            |
+      4N    |             ***************
+            |             *
+            |             *
+      2N    |  ************ ______________
+            |  *           /
+            |  *          /
+      N     |  * ________/
+            |  */
+            | */
+            |*/---------------------------> k
+                N      2N  3N
 
        Figure 1. OPT VS. Strategy
 
-Question:
+Questions:
 
 - How to prove this is the best online strategy?
 - In real world, people don't care about money but the actual amount of difference.
@@ -76,22 +76,22 @@ The strategy is as follows:
 
 If the bone is found after k steps, we must have 2^k * d >= x and x > 2^(k - 2) * d. The total cost of searching is as following:
 
-Cost = 2*d + 2*2d + 2*2^2*d + ... 2*2^i*d + ... + x
-     <=  2*d + 2*2d + 2*2^2*d + ... 2*2^i*d + ... + 2*2^k*d
-     = 2d * (1 + 2 + 2^2 + ... + 2^k)
-     = 2d * (2^(k + 1) - 1)
-     < 2d * (8x/d - 1)
-     = 16x - 2d
+      Cost = 2*d + 2*2d + 2*2^2*d + ... 2*2^i*d + ... + x
+           <=  2*d + 2*2d + 2*2^2*d + ... 2*2^i*d + ... + 2*2^k*d
+           = 2d * (1 + 2 + 2^2 + ... + 2^k)
+           = 2d * (2^(k + 1) - 1)
+           < 2d * (8x/d - 1)
+           = 16x - 2d
 
 Now suppose in each step, instead of doubling the distance, we multiply the distance by m. m^k * d >= x and x > m^(k - 2)*d. Then we have:
 
-Cost = 2*d + 2*md + 2*m^2*d + ... + 2*m^i*d + ... + x
-     <= 2*d + 2*md + 2*m^2*d + ... + 2*m^i*d + ... + 2*m^k*d
-     = 2d * (1 + m + m^2 + ... + m^k)
-     = 2d * (m^(k + 1) - 1)/(m - 1)
-     = 2d*(m^3*x/d - 1)/(m - 1)
-     = (2*m^3*x - 2d)/(m - 1)
-     = 2*m^3/(m-1) * x - 2d/(m-1)
+      Cost = 2*d + 2*md + 2*m^2*d + ... + 2*m^i*d + ... + x
+           <= 2*d + 2*md + 2*m^2*d + ... + 2*m^i*d + ... + 2*m^k*d
+           = 2d * (1 + m + m^2 + ... + m^k)
+           = 2d * (m^(k + 1) - 1)/(m - 1)
+           = 2d*(m^3*x/d - 1)/(m - 1)
+           = (2*m^3*x - 2d)/(m - 1)
+           = 2*m^3/(m-1) * x - 2d/(m-1)
 
 The function f(m) = 2*m^3/(m - 1). m = 2 is not the smallest ratio. There exists a mimimum 1.5. If m = 1.5, ratio = 13.5.
 
@@ -108,16 +108,16 @@ f(1) = f(2) = 1, f(n) = f(n - 1) + f(n - 2)
 
 If the bone is found after k steps, we must have d*f(k) >= x and x > d*f(k - 2). The total cost of searching can be calculated as follows:
 
-Cost = 2*f(1)*d + 2*f(2)*d + ... + 2*f(i)*d + ... x
-     <= 2*f(1)*d + 2*f(2)*d + ... + 2*f(i)*d + ... 2*f(k)*d
-     = 2d* (f(1) + f(2) + ... + f(k))
-     = 2d * (f(k + 2) - 1)
-
-     f(k + 2) = f(k + 1) + f(k) = 2*f(k) + f(k - 1) = 3*f(k - 1) + 2*f(k-2) = 3*f(k-3) + 5*f(k-2) < 8*f(k-2)
-
-     < 2d * (8*f(k-2) -1)
-     < 2d * (8x/d - 1)
-     = 16x - 2d
+      Cost = 2*f(1)*d + 2*f(2)*d + ... + 2*f(i)*d + ... x
+           <= 2*f(1)*d + 2*f(2)*d + ... + 2*f(i)*d + ... 2*f(k)*d
+           = 2d* (f(1) + f(2) + ... + f(k))
+           = 2d * (f(k + 2) - 1)
+      
+      f(k + 2) = f(k + 1) + f(k) = 2*f(k) + f(k - 1) = 3*f(k - 1) + 2*f(k-2) = 3*f(k-3) + 5*f(k-2) < 8*f(k-2)
+      
+           < 2d * (8*f(k-2) -1)
+           < 2d * (8x/d - 1)
+           = 16x - 2d
 
 
 ### 3.2
@@ -130,12 +130,12 @@ The algorithm is as follows:
 
 If the bone is found in after k rounds, we must have d*a^k >= x and x > d*a^(k - 1). Then the total cost of searching is as follows:
 
-Cost = m*2*a^0*d + m*2*a^1*d + ... + m*2*a^i*d + ... + Cost_last_round
-     <= m*2*d + m*2*a*d + ... + m*2*a^i*d + ... + m*2*a^k*d
-     = m*2d(1 + a + ... + a^k)
-     = m*2d(a^(k+1) - 1)/(a - 1)
-     < m*2d(a^2*x/d -1)/(a - 1)
-     < 2m * a^2/(a-1)
+      Cost = m*2*a^0*d + m*2*a^1*d + ... + m*2*a^i*d + ... + Cost_last_round
+           <= m*2*d + m*2*a*d + ... + m*2*a^i*d + ... + m*2*a^k*d
+           = m*2d(1 + a + ... + a^k)
+           = m*2d(a^(k+1) - 1)/(a - 1)
+           < m*2d(a^2*x/d -1)/(a - 1)
+           < 2m * a^2/(a-1)
 
 let a = 2, then Cost < 8m = O(mx).
 

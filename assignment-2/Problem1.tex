@@ -1,6 +1,6 @@
-We first show that the optimal strategy OPT is as follows:
+Let $T$ be the total times of skis. We first show that the optimal strategy OPT is as follows:
 
-\[ f(n) = \left\{
+\[ f(T) = \left\{
   \begin{array}{l l}
     \text{rent skis} & \quad \text{if $T < N$}  \\
     \text{buy cheap skis} & \quad \text{if $N \leq T \leq 2N$} \\
@@ -27,11 +27,11 @@ We propose following online algorithm:
 
 \[Online(n) = \left\{
   \begin{array}{l l}
-    \text{rent skis} & \quad \text{if $T < N$}  \\
-    \text{buy cheap skis} & \quad \text{if $T = N$}  \\
-    \text{use cheap skis} & \quad \text{if $N < T < 3N$} \\
-    \text{buy expensive skis} & \quad \text{if $T = 3N$} \\
-    \text{use expensive skis} & \quad \text{if $T > 3N$}\\
+    \text{rent skis} & \quad \text{if $n < N$}  \\
+    \text{buy cheap skis} & \quad \text{if $n = N$}  \\
+    \text{use cheap skis} & \quad \text{if $N < n < 3N$} \\
+    \text{buy expensive skis} & \quad \text{if $n = 3N$} \\
+    \text{use expensive skis} & \quad \text{if $n > 3N$}\\
   \end{array} \right.
 \]
 

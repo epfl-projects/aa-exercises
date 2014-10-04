@@ -3,7 +3,7 @@ We first show that the optimal strategy OPT is as follows:
 \[ f(n) = \left\{
   \begin{array}{l l}
     \text{rent skis} & \quad \text{if $T < N$}  \\
-    \text{buy cheap skis} & \quad \text{if $N \geq T \leq 2N$} \\
+    \text{buy cheap skis} & \quad \text{if $N \leq T \leq 2N$} \\
     \text{buy cheap skis and rent $T - 2N$} & \quad \text{if $2N < T < 3N$} \\
     \text{buy expensive skis} & \quad \text{if $T \geq 3N$}\\
   \end{array} \right.
@@ -15,7 +15,7 @@ The reasons are given below:
 \begin{enumerate}
 \item \textbf{$T < N$}. In this case, rent costs less than $N$, while the other two choices will cost at least $N$.
 
-\item \textbf{$N \geq T \leq 2N$}. In this case, buy cheap skis costs $N$, while the other two choices will cost more than $N$.
+\item \textbf{$N \leq T \leq 2N$}. In this case, buy cheap skis costs $N$, while the other two choices will cost more than $N$.
 
 \item \textbf{$2N < T < 3N$}. In this case, buy cheap skis and rent $T-2N$ times will cost less than $2N$, while other two choices will cost at least $2N$.
 

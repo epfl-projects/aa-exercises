@@ -1,1 +1,45 @@
-TODO: problem 3
+% Lost dog
+
+\section{Two-way road}
+The dog is sitting at a distance $x$ of a bone. Without loss of generality, we assume $x \geq 1$, $1$ being any unit of distance. Since the optimal strategy (\textit{OPT}) knows the exact position of the bone, it only needs to travel a distance $x$.\\
+
+Our strategy is the following :
+\begin{enumerate}
+  \item Travel a distance $d$ to the right and come back to the central point
+  \item Travel a distance $2d$ in the other direction and come back.
+  \item Repeat, doubling the distance at each new step and stopping as soon as the bone is found.
+\end{enumerate}
+
+Since we assume $x \geq 1$, we set $d = 1$. At round $i$, we travel a distance of $2 \cdot 2^i$ (round trip). We claim that this strategy (\textit{STRAT}) is \textit{9-competitive} with \textit{OPT}. The worst-case competitive ratio between \textit{STRAT} and \textit{OPT} occurs in the following situation:\\
+When $x = 2^n + \epsilon$, \textit{OPT} only needs to travel a distance $x$ whereas \textit{STRAT} needs to cover an additional distance of:
+\begin{enumerate}
+  \item $2 \cdot 2^n$, coming just $\epsilon$ shy of the bone and coming back to the center (trip number $n$)
+  \item $2 \cdot 2^{n+1}$ for the round-trip in the other direction (trip number $n+1$)
+  \item $2^n + \epsilon = x$ for finally finding the bone (trip number $n+2$)
+\end{enumerate}
+
+The total cost of \textit{STRAT} in this worst case amounts to:
+
+\[
+\begin{array}{ll}
+  C_\text{STRAT} & = \sum_{i=0}^{n+1} {2 \cdot 2^i} + 2^n + \epsilon \\
+                 & = 2 \cdot 2^{n+2} + 2^n + \epsilon \\
+                 & = 2^n (2^3 + 1) + \epsilon \\
+                 & = 9 \cdot 2^n + \epsilon
+\end{array}
+\]
+
+And the competitive ratio therefore is:
+\[
+\begin{array}{ll}
+  \frac{C_\text{STRAT}}{C_\text{OPT}}
+    & = \frac{9 \cdot 2^n + \epsilon}{2^n + \epsilon}\\
+    & \leq \frac{9 \cdot (2^n + \epsilon)}{2^n + \epsilon}\\
+    & \leq 9\\
+\end{array}
+\]
+
+
+\section{\textit{m} roads}
+
+The dog is now sitting at a crossroad with $m$ possible directions. The bone is at a distance $x$ on one of the roads.

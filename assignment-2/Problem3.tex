@@ -42,4 +42,25 @@ And the worst-case competitive ratio therefore is at most:
 
 \section{\textit{m} roads}
 
-The dog is now sitting at a crossroad with $m$ possible directions. The bone is at a distance $x$ on one of the roads.
+The dog is now sitting at a crossroad with $m$ possible directions. The bone is at a distance $x$ on one of the roads. \textit{OPT} still finds the bone at cost $x$.\\
+
+We cannot apply \textit{STRAT} directly since the cost of a single round would increase exponentially with the number of roads. Instead, we only double the distance after having completed a tour of the $m$ rounds (\textit{STRAT$\prime$}). We claim that \textit{STRAT$\prime$} is at least \textit{$(8m + 1)$-competitive} with \textit{OPT}. If we start by exploring road $1$, the worst case occurs when the bone is at a distance $x = 2^n + \epsilon$ on road $m$. We must then perform another complete tour of the $m-1$ other roads before finding the bone. This final round consists of:
+\begin{itemize}
+  \item $m-1$ trips of cost $2^{n+1}$ before reaching the correct road
+  \item $1$ trip of cost $2^n + \epsilon = x$ for finally finding the bone
+\end{itemize}
+
+Similarly to the previous section, the total cost is:
+
+\[
+\begin{array}{ll}
+  C_{\text{STRAT}\prime}
+    & = \sum_{i=0}^n {2m \cdot 2^i} + 2(m-1) \cdot 2^{n+1} + x \\
+    & = 2m \cdot \sum_{i=0}^{n+1} {2^i} - (2^{n+1} - x) \\
+    & = 2m \cdot 2^{n+2} - 2^{n+1} + 2^n + \epsilon \\
+    & \leq 2^n \cdot (2m \cdot 2^2 + 1) - 2^{n+1} + \epsilon \\
+    & \leq (2^n + \epsilon) \cdot (8m + 1)
+\end{array}
+\]
+
+And thus the worst-case competitive ratio is at most $8m + 1$.

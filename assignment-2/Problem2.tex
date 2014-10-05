@@ -1,1 +1,36 @@
-TODO: problem 2
+Let's define a potential function as follows: \\
+
+$\Phi = \sum\limits_{x} \alpha_{x} \times (k - c_{x})$ \\
+
+
+where $\alpha_{x}$ is the number of elements before element $x$ in the MTF list but after $x$ in the optimal list (God’s list), $c_{x}$ is the counter value for $x$ and $k$ is the maximum value of that counter $(c_{x} \in [0 \, k-1])$. When $c_{x} = k$, the element is moved to the front of the list. \\
+
+Say we move some element $x$ (initially at the $i^{th}$ index) to the front of the list on its $k^{th}$ access. Now lets take a look at the cost and how the potential changes: \\
+
+$cost_{real} = i$, where $i$ is the index of $x$ \\
+
+
+$\Delta \Phi = - \alpha_{x} + \sum\limits_{m} (k - c_{m})$ \\
+
+where $m$ belongs to the set of $(i - 1 - \alpha_{x})$ elements that were before $x$ in both the original MTF list and the optimal list. For such elements αm increases by 1 and hence the potential increase contributed by such element $m$ is $(k - c_{m})$. Since before the move the counter for $x$ must have been $k - 1$ the potential must have been  $\alpha_{x} \times (k - (k - 1)) = \alpha_{x}$. After the move potential for $x$ is $0$ since there are no elements before $x$ in the new MTF list. \\
+
+Now, \\
+
+$cost_{real} + \Delta \Phi = i - \alpha_{x} + \sum\limits_{m} (k - c_{m})$ \\
+
+worst case is when for all $m$ elements ($i - 1 - \alpha_{x}$ of them) $c_{m}$ is $0$ (maximizing potential and hence randomness) \\
+
+So for worst case, \\
+
+$cost_{real} + \Delta \Phi = i - \alpha_{x} + \sum\limits_{m} k = i - \alpha_{x} + k(i - 1 - \alpha_{x}) = (k+1)(i - 1- \alpha_{x}) + 1$ \\
+
+Now we know the cost of accessing $x$ in the God’s list is atleast $i - 1 - \alpha_{x}$ \\
+So if $j$ is the cost of accessing $x$ in God’s list $j > i - 1 - \alpha_{x}$ \\
+
+Hence, \\
+
+$cost_{real} + \Delta \Phi < (k + 1)j + 1$ \\
+\indent $cost_{real} + \Delta \Phi \leq (k + 1)j$ \\
+
+So the amortized cost of moving elements to the front on $k^{th}$ access is not more than $(k+1)$ times the optimal cost.
+

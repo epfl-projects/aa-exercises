@@ -1,10 +1,10 @@
-Let $T$ be the total times of skis. We first show that the optimal strategy OPT is as follows:
+Let $T$ be the total number of ski trips. We first show that the optimal strategy \textit{OPT} is as follows:
 
-\[ f(T) = \left\{
+\[ OPT(T) = \left\{
   \begin{array}{l l}
     \text{rent skis} & \quad \text{if $T < N$}  \\
     \text{buy cheap skis} & \quad \text{if $N \leq T \leq 2N$} \\
-    \text{buy cheap skis and rent $T - 2N$} & \quad \text{if $2N < T < 3N$} \\
+    \text{buy cheap skis and rent $T - 2N$ times} & \quad \text{if $2N < T < 3N$} \\
     \text{buy expensive skis} & \quad \text{if $T \geq 3N$}\\
   \end{array} \right.
 \]
@@ -13,43 +13,41 @@ Let $T$ be the total times of skis. We first show that the optimal strategy OPT 
 The reasons are given below:
 
 \begin{enumerate}
-\item \textbf{$T < N$}. In this case, rent costs less than $N$, while the other two choices will cost at least $N$.
-
-\item \textbf{$N \leq T \leq 2N$}. In this case, buy cheap skis costs $N$, while the other two choices will cost more than $N$.
-
-\item \textbf{$2N < T < 3N$}. In this case, buy cheap skis and rent $T-2N$ times will cost less than $2N$, while other two choices will cost at least $2N$.
-
-\item \textbf{$T \geq 3N$}. In this case, buy expensive costs $2N$, while no combination of the other two choices would cost less than $2N$.
+  \item \textbf{$T < N$}. In this case, renting costs less than $N$, while the other two choices would cost at least $N$.
+  \item \textbf{$N \leq T \leq 2N$}. In this case, buying cheap skis costs $N$, while the other two choices would cost more than $N$.
+  \item \textbf{$2N < T < 3N$}. In this case, buying cheap skis and rent $T-2N$ times will cost less than $2N$, while other two choices would cost at least $2N$.
+  \item \textbf{$T \geq 3N$}. In this case, buying expensive costs $2N$, while no combination of the other two choices would cost less than $2N$.
 \end{enumerate}
 
 \noindent
-We propose following online algorithm:
+Our online algorihtm must take a decision at each new ski trip, without knowledge of $T$. We denote $n$ the total number of ski trips so far (including the one we're taking the decision for). We propose following strategy:
 
 \[Online(n) = \left\{
   \begin{array}{l l}
     \text{rent skis} & \quad \text{if $n < N$}  \\
     \text{buy cheap skis} & \quad \text{if $n = N$}  \\
-    \text{use cheap skis} & \quad \text{if $N < n < 3N$} \\
+    \text{use the cheap skis that were bought previously} & \quad \text{if $N < n < 3N$} \\
     \text{buy expensive skis} & \quad \text{if $n = 3N$} \\
     \text{use expensive skis} & \quad \text{if $n > 3N$}\\
   \end{array} \right.
 \]
 
 \noindent
-We compare the performance below:
+We compare the performance below for all possible cases:
 
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
   \hline
-  Ski Times & Cost(OPT) & Cost(Online) & Ratio \\
+  Number of ski trips & Cost(OPT)     & Cost(Online)    & Ratio \\
+                      & one time cost & cumulative cost & \\
   \hline
-  $[1, N)$ & T & T & 1 \\
+  $[1, N[$            & T             & T               & 1 \\
   \hline
-  $[N, 2N]$ & N & 2N & 2 \\
+  $[N, 2N]$           & N             & 2N              & 2 \\
   \hline
-  $(2N, 3N)$ & T - N & 2N & $(1, 2)$ \\
+  $]2N, 3N[$          & T - N         & 2N              & $]1, 2[$ \\
   \hline
-  $[3N, \infty)$ & 2N & 4N & 2 \\
+  $[3N, \infty[$      & 2N            & 4N              & 2 \\
   \hline
 \end{tabular}
 \end{center}

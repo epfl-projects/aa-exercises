@@ -1,1 +1,20 @@
-TODO: Problem 1
+We use \textit{Markov inequality} to prove the corollary. Let $X = f(Y)$ and $t = k \cdot E[X]$, then we need to prove following:
+
+\[
+\def\arraystretch{1.5}
+\begin{array}{l l}
+                & Pr[X \geq k \cdot E[X]] \leq \cfrac{E[X]}{k \cdot E[X]} \\
+\Leftrightarrow & Pr[X \geq k \cdot E[X]] \leq \cfrac{1}{k}
+\end{array}
+\]
+
+\noindent
+Note that the last formula above is exactly \textit{Markov inequality}, given following conditions are valid:
+
+\begin{enumerate}
+
+\item $f$ is non-negative real function, so $X = f(Y)$ can only assume non-negative values.
+
+\item As $k = \cfrac{t}{E[X]}$, $X$ is non-negative and $t > 0$, we have $k > 0$.
+
+\end{enumerate}

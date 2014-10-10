@@ -1,1 +1,78 @@
-TODO: Problem 5
+\textbf{1. Expected Number of Tests}\\
+
+Let us donote the expected number of tests in a pool of $k$ individuals as $E[P]$. As each pool is completely independent, so the total expected number of tests $E[T]$ is the sum of the expected value of each pool:
+
+\[
+  E[T] = \sum E[P] = \cfrac{n}{k} \cdot E[P]
+\]
+
+For each pool, the expected number of tests is as follows:
+
+\[\def\arraystretch{1.5}
+  \begin{array}{l l l}
+        E[P] & = & Pr(negative) \cdot 1 + Pr(positive) \cdot (1 + k) \\
+             & = & \left(1 - p\right)^k \cdot 1 + \left(1 - \left(1 - p \right)^k \right) \cdot \left(1 + k \right) \\
+             & = & 1 + k - k \cdot \left(1 - p \right)^k
+  \end{array}
+\]
+
+So the expected total number of tests is as follows:
+
+\[\def\arraystretch{1.5}
+  \begin{array}{l l l}
+        E[T] & = & \cfrac{n}{k} \cdot E[P] \\
+             & = & \cfrac{n}{k} \cdot ( 1 + k - k \cdot (1 - p )^k) \\
+             & = & n \cdot ( \cfrac{1}{k} + 1 - (1 - p)^k )
+  \end{array}
+\]\\\\
+
+\noindent
+\textbf{2. Minimum Expected Number of Tests}\\
+
+As we can see above, the total expected number of tests depends on $k$. So we can choose $k$ to make the expected value as small as possible. As $n$ and $p$ is constant in a given scenario, so to minimize the expected number of tests, we have to find the value of $k$ that minimize following function:
+
+\[
+  f(k) = \cfrac{1}{k} - (1 - p)^k
+\]
+
+When $k \rightarrow 0$, $f(k) \rightarrow +\infty$. When $k \rightarrow +\infty$, $f(k) \rightarrow 0$. We can try to find if there exists a minimum by letting $f'(k) = 0$:
+
+\[
+  f'(k) = -\cfrac{1}{k^2} - (1-p)^k \cdot ln(1-p) = 0
+\]
+
+The equation above can be solved by numerical methods.\\\\
+
+\noindent
+\textbf{3. Analysis of Performance}\\
+
+We know that if we test each person separately without pooling, then we need $n$ tests in total. So we can compare it to the pooling method as follows:
+
+\[
+  \cfrac{Cost(pooling)}{Cost(regular)} = \cfrac{E[T]}{n} = \cfrac{1}{k} + 1 - (1 - p)^k
+\]
+
+The pooling method is better, when following condition holds:
+
+\[
+\def\arraystretch{1.5}
+\begin{array}{l l}
+                & \cfrac{1}{k} + 1 - (1 - p)^k < 1 \\
+\Leftrightarrow & \cfrac{1}{k} - (1 - p)^k < 0 \\
+\Leftrightarrow & \cfrac{1}{k} < (1 - p)^k \\
+\Leftrightarrow & \cfrac{1}{\sqrt[k]{k}} < (1 - p) \\
+\Leftrightarrow & \sqrt[k]{k} > \cfrac{1}{1 - p} \\
+\end{array}
+\]
+
+For function $f(k) = \sqrt[k]{k}$, we have $f'(k) = -k^{\frac{1}{k}-2}(ln(k) - 1)$. Let $f'(k) = 0$, we can get that $\text{max}\{f(k)\} = \sqrt[e]{e} \approx 1.445$. So we can always choose a $k$ to make the pooling method to perform better than the regular method, as long as following condition holds:
+
+\[
+\def\arraystretch{1.5}
+\begin{array}{l l}
+                & 1.445 > \cfrac{1}{1 - p} \\
+\Leftrightarrow & 1 - p > \cfrac{1}{1.445} \\
+\Leftrightarrow & 1 - \cfrac{1}{1.445} > p \\
+\Leftrightarrow & p < 0.308 \\
+\end{array}
+\]

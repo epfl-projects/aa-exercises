@@ -3,38 +3,66 @@
 
 Let $n$ the total number of balls in the bin at the end of the process. We denote $W_n$ the random variable equal to the number of white balls. We claim that:
 \[
-  \forall i \in [1; n-1], \Pr(W = i) = \f{1}{n - 1)}
+  \forall i \in [1; n-1], \Pr(W_n = i) = \f{1}{n - 1}
 \]
 
 Let us prove this property $\mathcal{P}_n$ for all $n > 2$ (i.e. at least one draw) by induction over $n$.\\
 
+Our proof will also use following fact. It's easy to see there's always both black balls and white balls in the bin, so that following equation holds:
+
+\[
+  \Pr(W_n = n) = \Pr(W_n = 0) = 0
+\]
+
 \noindent
 \textbf{Base case:} $n = 3$\\
 \[
-    \Pr(W_1 = 1) = \Pr(W_1 = 2) = \f{1}{2} = \f{1}{3 - 1}
+    \Pr(W_3 = 1) = \Pr(W_3 = 2) = \f{1}{2} = \f{1}{3 - 1}
 \]
 So $\mathcal{P}_1$ is verified.\\
 
 \noindent
-\textbf{Induction:} $n > 3$, assuming $\mathcal{P}_{n-1}$, which implies $\Pr(W_{n-1} = i) = \f{1}{(n - 1) - 1}$\\
+\textbf{Induction:} $n > 3$, assuming $\mathcal{P}_{n-1}$, which implies $\Pr(W_{n-1} = i) = \f{1}{(n - 1) - 1}, i \in [1;n - 2]$.\\
 For any $i \in [1; n-1]$, the event $\{W_n = i\}$ can only happen if:
 \begin{itemize}
-  \item There were $i - 1$ white balls in the bin and we picked a white ball. Picking a white ball at this point happens with probability $\f{i - 1}{n - 1}$
-  \item There were $i$ white balls in the bin and we did not pick a white ball. Picking a black ball at this point happens with probability $1 - \f{i}{n - 1}$
+  \item There were $i - 1$ white balls among $n - 1$ balls in the bin and we picked a white ball. Picking a white ball at this point happens with probability $\f{i - 1}{n - 1}$
+  \item There were $i$ white balls among $n - 1$ balls in the bin and we did not pick a white ball. Picking a black ball at this point happens with probability $1 - \f{i}{n - 1}$
 \end{itemize}
 
 \noindent
-It follows that:
-\[
-  \begin{array}{ll}
-    \Pr(W_n = i) & = \Pr(W_{n-1} = i - 1) \cdot \f{i - 1}{n - 1} + \Pr(W_{n-1} = i) \cdot \f{n - i - 1}{n - 1} \\
-                 & = \f{1}{(n - 1) - 1} \cdot \f{i - 1}{n - 1} + \f{1}{(n - 1) - 1} \cdot \f{n - i - 1}{n - 1} \\
-                 & = \f{i - 1 + n - i - 1}{(n - 2)(n-1)} \\
-                 & = \f{n - 2}{(n - 2)(n-1)}\\
-    \Pr(W_n = i) & = \f{1}{n - 1}
+It follows that for $i \in [2; n - 2]$:
+\[\def\arraystretch{1.5}
+  \begin{array}{lll}
+    \Pr(W_n = i) & = & \Pr(W_{n-1} = i - 1) \cdot \cfrac{i - 1}{n - 1} + \Pr(W_{n-1} = i) \cdot \cfrac{n - i - 1}{n - 1} \\
+                 & = & \cfrac{1}{(n - 1) - 1} \cdot \cfrac{i - 1}{n - 1} + \cfrac{1}{(n - 1) - 1} \cdot \cfrac{n - i - 1}{n - 1} \\
+                 & = & \cfrac{i - 1 + n - i - 1}{(n - 2)(n-1)} \\
+                 & = & \cfrac{n - 2}{(n - 2)(n-1)}\\
+                 & = & \cfrac{1}{n - 1}
   \end{array}
 \]
+
+\noindent
+For $i = 1$:
+\[\def\arraystretch{1.5}
+  \begin{array}{lll}
+    \Pr(W_n = 1) & = & \Pr(W_{n-1} = 0) \cdot \cfrac{1 - 1}{n - 1} + \Pr(W_{n-1} = 1) \cdot \cfrac{(n - 1) - 1}{n - 1} \\
+                 & = & 0 \cdot \cfrac{1 - 1}{n - 1} + \cfrac{1}{(n - 1) - 1} \cdot \cfrac{(n - 1) - 1}{n - 1} \\
+                 & = & \cfrac{1}{n - 1}
+  \end{array}
+\]
+
+\noindent
+For $i = n-1$:
+\[\def\arraystretch{1.5}
+  \begin{array}{lll}
+    \Pr(W_n = n - 1) & = & \Pr(W_{n-1} = n - 2) \cdot \cfrac{(n - 1) - 1}{n - 1} + \Pr(W_{n-1} = n-1) \cdot \cfrac{n - (n-1) - 1}{n - 1} \\
+                 & = & \cfrac{1}{(n - 1) - 1} \cdot \cfrac{(n - 1) - 1}{n - 1} + 0 \cdot \cfrac{n - (n-1) - 1}{n - 1} \\
+                 & = & \cfrac{1}{n - 1}
+  \end{array}
+\]
+
+
 So $\mathcal{P}_{n-1} \implies \mathcal{P}_{n}$.\\
 
 \noindent
-And thus we conclude that $\forall n > 2$, $\forall i \in [1; n-1], \Pr(W = i) = \f{1}{n - 1}$.
+And thus we conclude that $\forall n > 2$, $\forall i \in [1; n-1], \Pr(W = i) = \cfrac{1}{n - 1}$.

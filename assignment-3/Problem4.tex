@@ -19,8 +19,8 @@ So $\mathcal{P}_1$ is verified.\\
 \textbf{Induction:} $n > 3$, assuming $\mathcal{P}_{n-1}$, which implies $\Pr(W_{n-1} = i) = \f{1}{(n - 1) - 1}$\\
 For any $i \in [1; n-1]$, the event $\{W_n = i\}$ can only happen if:
 \begin{itemize}
-  \item There were $i - 1$ white balls in the bin and we picked a white ball, which happens with probability $\f{i - 1}{n - 1}$
-  \item There were $i$ white balls in the bin and we did not pick a white ball, which happens with probability $1 - \f{i}{n - 1}$
+  \item There were $i - 1$ white balls in the bin and we picked a white ball. Picking a white ball at this point happens with probability $\f{i - 1}{n - 1}$
+  \item There were $i$ white balls in the bin and we did not pick a white ball. Picking a black ball at this point happens with probability $1 - \f{i}{n - 1}$
 \end{itemize}
 
 \noindent

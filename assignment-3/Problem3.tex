@@ -1,1 +1,39 @@
-TODO: Problem 3
+% Alice and Bob play dice
+
+\newcommand{\f}[2]{\ensuremath{\frac{#1}{#2}}}
+
+Alice lets Bob choose first one of the three dices A, B, C. Let us verify that whatever Bob chooses, Alice can choose another dice with which she has a probability of winning $\Pr(W) > {1 \over 2}$.
+
+We denote $A_i$ (resp. $B_i$) the event ``Alice obtains the number $i$'' (resp. Bob). We assume that all dice rolls are independent.
+
+\begin{itemize}
+  \item \textbf{Bob chooses dice A}: Alice chooses dice B.\\
+  \[
+    \begin{array}{ll}
+      \Pr(W) & = \Pr(B_1, {A_2\text{ or }A_4\text{ or }A_9}) + \Pr(B_6, A_9) + \Pr(B_8, A_9) \\
+             & = \Pr(B_1) \cdot 1 + \Pr(B_6)\Pr(A_9) + \Pr(B_8)(A_9) \\
+             & = \f{1}{3} + \f{1}{3} \cdot \f{1}{3} + \f{1}{3} \cdot \f{1}{3} \\
+      \Pr(W) & = \f{5}{9} > \f{1}{2}
+    \end{array}
+  \]
+
+  \item \textbf{Bob chooses dice B}: Alice chooses dice C.\\
+  \[
+    \begin{array}{ll}
+      \Pr(W) & = \Pr(B_2, {A_3\text{ or }A_5\text{ or }A_7}) + \Pr(B_4, {A_5\text{ or }A_7}) \\
+             & = \f{1}{3} \cdot 1 + \f{1}{3} \cdot (\f{1}{3} + \f{1}{3}) \\
+      \Pr(W) & = \f{5}{9} > \f{1}{2}
+    \end{array}
+  \]
+
+  \item \textbf{Bob chooses dice C}: Alice chooses dice A.\\
+  \[
+    \begin{array}{ll}
+      \Pr(W) & = \Pr(B_3, {A_6\text{ or }A_8}) + \Pr(B_5, {A_6\text{ or }A_8}) + \Pr(B_7, A_8) \\
+             & = \f{1}{3} \cdot (\f{1}{3} + \f{1}{3}) + \f{1}{3} \cdot (\f{1}{3} + \f{1}{3}) + \f{1}{3} \cdot \f{1}{3} \\
+      \Pr(W) & = \f{5}{9} > \f{1}{2}
+    \end{array}
+  \]
+\end{itemize}
+
+And thus Alice wins regardless of the choice made by Bob.

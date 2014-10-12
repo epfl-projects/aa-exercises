@@ -1,1 +1,22 @@
-TODO: Problem 2
+% Two-steps randomized mincut
+\providecommand{\f}[2]{\ensuremath{\cfrac{#1}{#2}}}
+
+\section{Finding nearly optimal values for $k$ and $m$}
+  \subsection{Derivation of $\Pr(S_{k, m})$}
+
+
+  \subsection{Optimizing the probability of success}
+
+
+\section{Comparison with the fully randomized algorithm}
+  We denote $S_{k, m}$ the event ``our algorithm found the mincut with parameter values $k$ and $m$''. We denote $\Pr(S_{k, m})$ the associated probability, and $\Pr_0(S_m)$ the probability of success of the original, fully randomized algorithm over $m$ runs.
+
+  \noindent
+  As derived in the lecture notes, the original algorithm achieves the following performance:
+  \[
+    {\Pr}_0(S_m) = (1 - \f{2}{n(n-1)})^m
+  \]
+
+  \noindent
+  In our case, we fixed the reference to $m = 2$, so our algorithm must compete with $\Pr_0(S_2) = (1 - \f{2}{n(n-1)})^2$.
+

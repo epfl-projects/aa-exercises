@@ -1,4 +1,4 @@
-\textbf{1. Expected Number of Tests}\\
+\section{Expected number of tests}
 
 Let us donote the expected number of tests in a pool of $k$ individuals as $E[P]$. As each pool is completely independent, so the total expected number of tests $E[T]$ is the sum of the expected value of each pool:
 
@@ -26,8 +26,7 @@ So the expected total number of tests is as follows:
   \end{array}
 \]\\\\
 
-\noindent
-\textbf{2. Minimum Expected Number of Tests}\\
+\section{Minimum expected number of tests}
 
 As we can see above, the total expected number of tests depends on $k$. So we can choose $k$ to make the expected value as small as possible. As $n$ and $p$ is constant in a given scenario, so to minimize the expected number of tests, we have to find the value of $k$ that minimize the above function $E[T]$
 
@@ -42,13 +41,9 @@ Hence, solving for $\frac{\partial E[T]}{\partial k} = 0$ (any numerical method 
 %   f'(k) = -\cfrac{1}{k^2} - (1-p)^k \cdot ln(1-p) = 0
 % \]
 
-
-
-
 % $\frac{\partial E[T]}{\partial k} = 0$ can be solved by numerical methods.\\\\
 
-\noindent
-\textbf{3. Analysis of Performance}\\
+\section{Analysis of performance}
 
 We know that if we test each person separately without pooling, then we need $n$ tests in total. So we can compare it to the pooling method as follows:
 
@@ -80,3 +75,6 @@ For function $f(k) = \sqrt[k]{k}$, we have $f'(k) = -k^{\frac{1}{k}-2}(ln(k) - 1
 \Leftrightarrow & p < 0.308 \\
 \end{array}
 \]
+
+\noindent
+Note that we can always choose $k = 1$ to obtain the regular method.

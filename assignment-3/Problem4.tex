@@ -30,7 +30,7 @@ For any $i \in [1; n-1]$, the event $\{W_n = i\}$ can only happen if:
 \end{itemize}
 
 \noindent
-It follows that for $i \in [2; n - 2]$:
+It follows that \textbf{for $i \in [2; n - 2]$}:
 \[\def\arraystretch{1.5}
   \begin{array}{lll}
     \Pr(W_n = i) & = & \Pr(W_{n-1} = i - 1) \cdot \f{i - 1}{n - 1} + \Pr(W_{n-1} = i) \cdot \f{n - i - 1}{n - 1} \\
@@ -42,7 +42,7 @@ It follows that for $i \in [2; n - 2]$:
 \]
 
 \noindent
-For $i = 1$:
+\textbf{For $i = 1$}:
 \[\def\arraystretch{1.5}
   \begin{array}{lll}
     \Pr(W_n = 1) & = & \Pr(W_{n-1} = 0) \cdot \f{1 - 1}{n - 1} + \Pr(W_{n-1} = 1) \cdot \f{(n - 1) - 1}{n - 1} \\
@@ -52,7 +52,7 @@ For $i = 1$:
 \]
 
 \noindent
-For $i = n-1$:
+Finally, \textbf{for $i = n-1$}:
 \[\def\arraystretch{1.5}
   \begin{array}{lll}
     \Pr(W_n = n - 1) & = & \Pr(W_{n-1} = n - 2) \cdot \f{(n - 1) - 1}{n - 1} + \Pr(W_{n-1} = n-1) \cdot \f{n - (n-1) - 1}{n - 1} \\
@@ -61,8 +61,8 @@ For $i = n-1$:
   \end{array}
 \]
 
-
-So $\mathcal{P}_{n-1} \implies \mathcal{P}_{n}$.\\
+\noindent
+Which completes the induction step: $\mathcal{P}_{n-1} \implies \mathcal{P}_{n}$.\\
 
 \noindent
 And thus we conclude that $\forall n > 2$, $\forall i \in [1; n-1], \Pr(W = i) = \f{1}{n - 1}$.

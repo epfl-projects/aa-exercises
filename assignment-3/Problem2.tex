@@ -3,13 +3,44 @@
 
 \section{Finding nearly optimal values for $k$ and $m$}
   \subsection{Derivation of $\Pr(S_{k, m})$}
+   Let $\Pr(S_{k, m})$ denote the probability of success or the probability of not picking min-cut edges in the first k contractions and also during at least one of the $m$ amplification trials. \\
+
+
+\[\def\arraystretch{1.5}
+  \begin{array}{l l l}
+        \Pr(S_{k, m}) & \geq & \prod\limits_{i=0}^{k-1} \frac{n-i-2}{n-i} \times (1 - (1 - \prod\limits_{i=k}^{n-3} \frac{n-i-2}{n-i})^m) \\
+             & \geq &  \frac{(n-k)(n-k-1)}{n(n-1)} \times (1 - (1 - \frac{2}{(n-k)(n-k-1)})^m) \\
+             & \geq &  \frac{(n-k)(n-k-1)}{n(n-1)} \times (1 - e^{\frac{-2m}{(n-k)(n-k-1)}}) 
+  \end{array}
+\]
+
+The last substitution is due to the inequality $1-x \leq e^{-x}$ \\
+
+Using the constraint that the total number of edges contracted by the algorithm is $2(n-2)$, the above inequality can be written as a function of only $n$ and $k$  \\
+
+Since $k+m(n-k-2) = 2(n-2)$, $m = \frac{2(n-2)-k}{(n-k-2)}$ \\
+
+\begin{center}
+$\Pr(S_{k, m}) \geq \frac{(n-k)(n-k-1)}{n(n-1)} \times (1 - e^{\frac{-4(n-2)+2k}{(n-k)(n-k-1)(n-k-2)}})$
+\end{center}
+
+In order to maximize this probability one would maximize the right hand side of the above inequality. 
+
+Let's define the right hand side of the above inquality as a function $f(k)$ \\ 
+
+\begin{center}
+$f(k) = \frac{(n-k)(n-k-1)}{n(n-1)} \times (1 - e^{\frac{-4(n-2)+2k}{(n-k)(n-k-1)(n-k-2)}})$
+\end{center}
+
+We can compute the optimal value of k by solving $\frac{\partial f(k)}{\partial k} = 0$, once we have the optimal value of $k$ we can also get the optimal value of $m$ by using the equation $m = \frac{2(n-2)-k}{(n-k-2)}$. 
+
 
 
   \subsection{Optimizing the probability of success}
 
 
 \section{Comparison with the fully randomized algorithm}
-  We denote $S_{k, m}$ the event ``our algorithm found the mincut with parameter values $k$ and $m$''. We denote $\Pr(S_{k, m})$ the associated probability, and $\Pr_0(S_m)$ the probability of success of the original, fully randomized algorithm over $m$ runs.
+  We denote $S_{k, m}$ the event ``our algorithm finds the mincut with parameter values $k$ and $m$''. We denote $\Pr(S_{k, m})$ the associated probability, and $\Pr_0(S_m)$ the probability of success of the original, fully randomized algorithm over $m$ runs.
 
   \noindent
   As derived in the lecture notes, the original algorithm achieves the following performance:

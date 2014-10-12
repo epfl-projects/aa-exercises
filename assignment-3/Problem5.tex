@@ -29,19 +29,23 @@ So the expected total number of tests is as follows:
 \noindent
 \textbf{2. Minimum Expected Number of Tests}\\
 
-As we can see above, the total expected number of tests depends on $k$. So we can choose $k$ to make the expected value as small as possible. As $n$ and $p$ is constant in a given scenario, so to minimize the expected number of tests, we have to find the value of $k$ that minimize following function:
+As we can see above, the total expected number of tests depends on $k$. So we can choose $k$ to make the expected value as small as possible. As $n$ and $p$ is constant in a given scenario, so to minimize the expected number of tests, we have to find the value of $k$ that minimize the above function $E[T]$
 
-\[
-  f(k) = \cfrac{1}{k} - (1 - p)^k
-\]
+% \[
+%   f(k) = \cfrac{1}{k} - (1 - p)^k
+% \]
 
-When $k \rightarrow 0$, $f(k) \rightarrow +\infty$. When $k \rightarrow +\infty$, $f(k) \rightarrow 0$. We can try to find if there exists a minimum by letting $f'(k) = 0$:
+Since $k \in [1 ; n]$ minimizing the function $E[T]$ in the interval $[1 ; n]$ would give the minimum expected value of tests. \\
+% When $k \rightarrow 0$, $f(k) \rightarrow +\infty$. When $k \rightarrow +\infty$, $f(k) \rightarrow 0$. We can try to find if there exists a minimum by letting $f'(k) = 0$:
+Hence, solving for $\frac{\partial E[T]}{\partial k} = 0$ (any numerical method can be used) gives minimum expected number of tests. \\
+% \[
+%   f'(k) = -\cfrac{1}{k^2} - (1-p)^k \cdot ln(1-p) = 0
+% \]
 
-\[
-  f'(k) = -\cfrac{1}{k^2} - (1-p)^k \cdot ln(1-p) = 0
-\]
 
-The equation above can be solved by numerical methods.\\\\
+
+
+% $\frac{\partial E[T]}{\partial k} = 0$ can be solved by numerical methods.\\\\
 
 \noindent
 \textbf{3. Analysis of Performance}\\

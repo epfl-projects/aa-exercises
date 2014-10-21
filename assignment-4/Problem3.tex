@@ -2,20 +2,21 @@
 
 \texttt{Quicksort} is a classical sorting algorithm with worst-case performance in $O(n)$. Let us rephrase \texttt{Quicksort} as a randomized incremental construction algorithm and prove that it achieves $O(n lg(n))$ expected performance.\\
 
-Through the execution, we maintain a \textbf{conflict list} (CL).
+We see ``pivot'' elements as forming boundaries of intervals in the array. Each processed element becomes a new pivot and thus an interval boundary. At the initial state, we have processed zero elements and the only interval is the whole array. We say an element is ``in conflict'' with an interval if it lies between its bounds. We will create intervals so that they are non-overlapping and their bounds are strictly increasing.\\
 
-The CL can be seen as a bipartite graph representing the conflicts of unprocessed elements with existing intervals. One unprocessed element can only conflict with one interval.
-Processing the next element $x$ (chosen at random) corresponds to choosing a new pivot in the original algorithm. We split its original interval into two smaller intervals. This incurs the following cost:
+Through the execution, we maintain a \textbf{conflict list} (CL). The CL can be seen as a bipartite graph representing the conflicts of unprocessed elements with existing intervals. One unprocessed element can thus only conflict with one interval.\\
+
+Processing the next element $x$ (chosen at random) corresponds, in the original algorithm, to choosing a new pivot. We split its original interval into two smaller intervals. This incurs the following cost:
 \begin{itemize}
   \item Finding the interval $I$ with which $x$ is in conflict: $O(1)$ thanks to our conflict list.
-  \item Removing $x$ from the conflict list (it is no a \textit{processed} element): $O(1)$
+  \item Removing $x$ from the conflict list (it is no long an unprocessed element): $O(1)$
   \item Cutting $I$ in half, since $x$ is its new pivot: $O(1)$
-  \item Updating the remaining unprocessed elements. Note that only elements which where in conflict with $I$ are affected by the change. They could not enter in conflict with any of the pre-existing intervals, so we only need to decide whether they conflict with one of the new subinterval or the other. This takes time proportional to the number of unprocessed elements in conflict with $I$, which we denote $k$.
+  \item Updating the remaining unprocessed elements. Remark that only elements which where in conflict with $I$ are affected by the change. They could not enter in conflict with any of the pre-existing intervals, so we only need to determine whether they conflict with one of the new subinterval or the other. This is only a matter of comparing the element with the intervals' bounds. The update takes time proportional to the number of unprocessed elements in conflict with $I$, which we denote $k$.
 \end{itemize}
 
-Let us determine the expected value of $k$ by backwards analysis. At a given step, we have processed $i$ elements, thus creating $i+1$ intervals. Adding the latest element created two of these $i+1$ intervals, with cost proportional to number of elements now in conflict with them. Since elements (pivots) are chosen uniformely at random, the expected number of elements in conflict with each of the intervals is $\frac{n}{i+1}$. Thus step $i$ has expected cost $2 \cdot \frac{n}{i+1}$.
+Let us determine the expected value of $k$ by backwards analysis. At a given step, we have processed $i$ elements, delimiting $i+1$ intervals. Adding the latest element created two out of those $i+1$ intervals, with cost proportional to the number of elements now in conflict with them. Since elements (pivots) are chosen uniformely at random, the expected number of elements in conflict with each of the intervals is $\frac{n}{i+1}$. Thus step $i$ has expected cost $2 \cdot \frac{n}{i+1}$.\\
 
-We continue processing elements until all intervals have size 1.
+We continue processing elements until all intervals have size 1, incurring a total expected cost of:
 \[
   \sum_{i=0}^n {2 \cdot \frac{n}{i+1}} = 2n \cdot H_{n+1} = O(n lg(n))
 \]

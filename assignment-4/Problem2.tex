@@ -1,1 +1,49 @@
 % Separate red and green points with a line (2D linear programming)
+
+Suppose the $n$ red points are $(x_1^r, y_1^r), (x_2^r, y_2^r), .., (x_n^r, y_n^r)$. The $m$ green points are $(x_1^g, y_1^g), (x_2^g, y_2^g), .., (x_m^g, y_m^g)$. Suppose the line $l$ which separates the red points from green points is as follows:
+
+\[
+  a \cdot x + b \cdot y + 1 = 0
+\]
+
+Note that the assumption excludes sparating lines like $a \cdot x + b \cdot y = 0$. However, if $a \cdot x + b \cdot y = 0$ is a separating line, we can move the line slightly to get a new separating line like $a \cdot x + b \cdot y + \epsilon = 0$, which is equal to $\frac{a}{\epsilon} \cdot x + \frac{b}{\epsilon} \cdot y + 1 = 0$.
+
+As line $l$ halves the plane, the $n$ red points and $m$ green points are on different side of the line, we have:
+
+\[
+  \left\{
+      \begin{array}{l}
+          a \cdot x_1^r + b \cdot y_1^r + 1 < 0 \\
+          a \cdot x_2^r + b \cdot y_2^r + 1 < 0 \\
+          \cdots \\
+          a \cdot x_n^r + b \cdot y_n^r + 1 < 0 \\
+          a \cdot x_1^g + b \cdot y_1^g + 1 > 0 \\
+          a \cdot x_2^g + b \cdot y_2^g + 1 > 0 \\
+          \cdots \\
+          a \cdot x_m^g + b \cdot y_m^g + 1 > 0
+      \end{array}
+  \right.
+  \hspace{1cm}\text{or}\hspace{1cm}
+  \left\{
+      \begin{array}{l}
+          a \cdot x_1^r + b \cdot y_1^r + 1 > 0 \\
+          a \cdot x_2^r + b \cdot y_2^r + 1 > 0 \\
+          \cdots \\
+          a \cdot x_n^r + b \cdot y_n^r + 1 > 0 \\
+          a \cdot x_1^g + b \cdot y_1^g + 1 < 0 \\
+          a \cdot x_2^g + b \cdot y_2^g + 1 < 0 \\
+          \cdots \\
+          a \cdot x_m^g + b \cdot y_m^g + 1 < 0
+      \end{array}
+  \right.
+\]
+
+We have two set of inequalities above, due to the fact that we don't know in advance on which side of the line the red and green points lie.
+
+It's obvious that the inequalities above are linear constraints about variable $a$ and $b$. If we define the objective function as follows:
+
+\[
+  f(a, b) = a + b
+\]
+
+Then this is a pure 2D linear programming problem, we just need to run the standard algorithm twice. As the expected cost of the standard randomized algorithm is \~O(n), so we can find the separating line in \~O(m + n).

@@ -38,7 +38,7 @@ As line $l$ halves the plane, the $n$ red points and $m$ green points are on dif
   \right.
 \]
 
-We have two set of inequalities above, due to the fact that we don't know in advance on which side of the line the red and green points lie.
+We have two set of inequalities above, due to the fact that we don't know in advance on which side of the line the red and green points lie respectively.
 
 It's obvious that the inequalities above are linear constraints about variable $a$ and $b$. If we define the objective function as follows:
 
@@ -46,4 +46,4 @@ It's obvious that the inequalities above are linear constraints about variable $
   f(a, b) = a + b
 \]
 
-Then this is a pure 2D linear programming problem, we just need to run the standard algorithm twice. As the expected cost of the standard randomized algorithm is \~O(n), so we can find the separating line in \~O(m + n).
+Then this is a pure 2D linear programming problem, we just need to run the standard algorithm twice. As the expected cost of the standard randomized algorithm is \~O(n) for n constraints, so we can find the separating line in \~O(m + n).

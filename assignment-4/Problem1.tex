@@ -48,11 +48,11 @@ Now consider the triangle PAB. From the fact that AB is an edge of polygon, PA a
 
 Suppose point P $(x_0, y_0)$ is the solution to the LP problem. P must be within the polygon, as the inner side of the edge lines form a subset area of the polygon. P must be facing inner sides of all edges, or at least one constraint will be violated.
 
-Now consider any vertex C. Because P is facing inner sides of the two edges which join at C, then we have:
+For any vertex C, consider the segment PC. As P is within the polygon, we have:
 
 \begin{itemize}
-\item Segment PC is totally within the polygon, or
-\item There exists at least one edge $e$ which cuts segment PC, and P is facing outer side of $e$.
+\item Segment PC intersects with the boundary of polygon once at C, or
+\item Segment PC intersects with the boundary of polygon $2k + 1$ times($k > 0$), once at vertex C, k times in and k times out the polygon at other 2k points in the boundary of polygon.
 \end{itemize}
 
-We know P is facing inner side of all edges, so PC must be within polygon, i.e. PC doesn't cross polygon boundary. So P is the point we want to find.
+In the second case, there exists at least one point M in the boundary of polygon, where PC enters polygon. Suppose point M is a point on edge $e$, then P is facing outer side of $e$. This contradicts with the fact that P is facing inner sides of all edges, so segment PC only intersects with the boundary of polygon once at C. This means segment PC doesn't cross polygon boundary, so P is the point we want to find.

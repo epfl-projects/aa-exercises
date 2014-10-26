@@ -13,12 +13,12 @@ Suppose the edges of the polygon are $e_1, e_2, .., e_n$, we denote the lines co
   \right.
 \]
 
-Each edge forms a part of the boundary of the polygon, one side is inside the polygon, while the other side is outside. However, as the polygon is not necessarily convex, there could be inner points lying on two sides of the line corresponding to the edge. If we traverse the polygon edges in the clockwise order, we'll find that the inner side is always on the right hand of the edges. If we traverse the polygon edges in counter-clockwise order, the inner side is always on the left hand of the edges.
+Each edge forms a part of the boundary of the polygon, one side is inside the polygon, while the other side is outside. However, as the polygon is not necessarily convex, there could be inner points lying on both sides of the line corresponding to any given edge. If we traverse the polygon edges in the clockwise order, we'll find that ``inside'' is always on the right-hand side of the edges. Conversely, if we traverse the polygon edges in counter-clockwise order, ``inside'' is always on the left-hand side of the edges.
 
-If we know the order how the vertices are represented in the doublely-linked list, we can easily calculate inner side of each edge in $O(n)$. If we don't know the order, we can use following trick to determine the order in linear time:
+If we know the order in which the vertices are given in the doublely-linked list, we can easily calculate inner side of each edge in time $O(n)$. If we don't know the order, we can use following trick to determine the order in linear time:
 
 \begin{quote}
-Sum over the edges, $\cfrac{x_{i+1}-x_i}{y_{i+1}-y_i}$. If the result is positive the curve is clockwise, if it's negative the curve is counter-clockwise.
+  Sum over the edges, $\cfrac{x_{i+1}-x_i}{y_{i+1}-y_i}$. If the result is positive the curve is clockwise, if it's negative the curve is counter-clockwise.
 \end{quote}
 
 Suppose we get following result about the inner side of edges:
@@ -34,7 +34,7 @@ Suppose we get following result about the inner side of edges:
   \right.
 \]\\
 
-Let's define $f(x, y) = x + y$ as the objective function, then we have a typical 2D linear programming problem at hand. Next we're going to show that the original problem is indeed equivalent to the 2D linear programming problem formulated above. As the expected cost of the standard algorithm for 2D linear programming problem is \~O(n) for n constraints, so the expected cost to determine the existence of point is also linear.\\
+Let's define $f(x, y) = x + y$ as the objective function. Then we have a typical 2D linear programming problem at hand. Let us now show that the original problem is indeed equivalent to the 2D linear programming problem formulated above. As the expected cost of the standard algorithm for 2D linear programming problem is \~O(n) for $n$ constraints, so the expected cost to determine the existence of point is also linear.\\
 
 To prove that the two problem formulations are equivalent, we have to prove in both directions.\\
 
@@ -55,4 +55,4 @@ For any vertex C, consider the segment PC. As P is within the polygon, we have:
   \item Segment PC intersects with the boundary of polygon $2k + 1$ times ($k > 0$), once at vertex C, $k$ times in and $k$ times out the polygon at other $2k$ points in the boundary of polygon.
 \end{itemize}
 
-In the second case, there exists at least one point M in the boundary of the polygon, where PC enters polygon. Suppose point M is a point on edge $e$, then P is facing outer side of $e$. This contradicts with the fact that P is facing inner sides of all edges, so segment PC only intersects with the boundary of polygon once at C. This means segment PC doesn't cross the polygon boundary, so P is the point we want to find.
+In the second case, there exists at least one point M in the boundary of the polygon, where PC enters polygon. Suppose point M is a point on edge $e$, then P is facing the outer side of $e$. This contradicts with the fact that P is facing inner sides of all edges, so segment PC only intersects with the boundary of polygon once at C. This means segment PC doesn't cross the polygon boundary, so P is the point we want to find.

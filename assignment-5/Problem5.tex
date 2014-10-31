@@ -1,1 +1,57 @@
 % Influence of the capacities in the network (mincut / maxflow)
+
+Let's denote the original network as $N$, the network with capacity of each edge increased by 1 as $N_{+1}$, the network with capacity of of each edge decreased by 1 as $N_{-1}$. Then we have following facts:
+
+\[
+  \begin{array}{l}
+    maxflow(N) = F \\
+    maxflow(N_{+1}) = F + \Delta_1 \\
+    maxflow(N_{-1}) = F - \Delta_2
+  \end{array}
+\]
+
+Now consider a new network $N\prime$, which is composed of network $N_{+1}$ and $N_{-1}$ by adding a new source and a new sink. The source and sink of $N\prime$ are connected to sources and sinks of $N_{+1}$ and $N_{-1}$ respectively by edges with capacity of $+\infty$.
+
+Next we prove following two facts about the network $N\prime$, the conclusion follows trivially from the facts below.
+
+\section{The maxflow of $N\prime$ is $2F + \Delta_1 - \Delta_2$}
+
+According to the \textit{mincut-maxflow thereom}, we know that:
+
+\[
+  \begin{array}{c}
+    mincut(N_{+1}) = maxflow(N_{+1}) = F + \Delta_1 \\
+    mincut(N_{-1}) = maxflow(N_{-1}) = F - \Delta_2
+  \end{array}
+\]
+
+For network $N\prime$, subnetwork $N_{+1}$ and $N_{-1}$ are the only two possible paths from source to sink, so we have:
+
+\[
+  mincut(N\prime) = mincut(N_{+1}) + mincut(N_{-1}) = 2F + \Delta_1 - \Delta_2
+\]
+
+Use the \textit{mincut-maxflow thereom}, mincut of a network is equal to maxflow, so the maxflow of $(N\prime)$ is $2F + \Delta_1 - \Delta_2$.
+
+\section{The maxflow of $N\prime$ is less than $2F$}
+
+Consider the mincut edges of the original network $N$, denote them as $E$. Denote the edges in network $N_{+1}$ and $N_{-1}$ that correspond to $E$ as $E_{+1}$ and $E_{-1}$ respectively. Suppose the mincut $E$ has $k$ edges, then we have following:
+
+\[
+  \begin{array}{c}
+    capacity(E_{+1}) = F + k \\
+    capacity(E_{-1}) = F - k
+  \end{array}
+\]
+
+Now consider network $N\prime$, it's obvious edges $E_{+1} \cup E_{-1}$ forms a cut of $N\prime$. Then we have:
+
+\[
+  \begin{array}{l l l}
+    mincut(N\prime) & \leq & capacity(E_{+1} \cup E_{-1}) \\
+                    & =    & capacity(E_{+1}) + capacity(E_{-1}) \\
+                    & =    & 2F
+  \end{array}
+\]
+
+According to \textit{mincut-maxflow thereom}, mincut of a network is equal to maxflow, so the maxflow of network $N\prime$ is less than $2F$.

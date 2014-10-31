@@ -1,18 +1,17 @@
 % Devise an MST algorithm for a particular family of graphs
 
-We focus on the family of graphs which have a subset of $k$ edges whose removal turns the graph into a tree. Let $G = (E, V)$ a graph of this family and $E' \subseteq E$ the subset of edges of size $|E'| = k$.
-
-If edges are not weighted (or all have unit weight), any tree of $G$ is an MST. Therefore $G' = (E \backslash E', V)$ is an MST. We can build $G'$ in linear time using Depth-First search in $G$:
+We focus on the family of graphs which have a subset of $k$ edges whose removal turns the graph into a tree. Let $G = (E, V)$ a graph of this family and $E' \subseteq E$ the subset of edges of size $|E'| = k$. These $k$ edges must be part of at most $k$ cycles. We propose the following algorithm to remove these cycles and optain an MST in linear time:
 
 \begin{enumerate}
   \item Start at any vertex $v$.
-  \item Explore the graph in a depth-first fashion:
+  \item Explore the graph in a depth-first fashion, maintaining a doubly-linked list of the current path.
   \begin{itemize}
-    \item Each time a new node is encountered, mark it as visited and add the edge used to the MST.
-    \item If an edge $e$ allows to go from the current vertex to a previously visited vertex, then it must be part of the cycle. We do not include $e$ in the MST.
+    \item When a new node $v$ is encountered through an edge $e$: mark $v$ as visited, add $v$ to the current path list and add $e$ to the MST.
+    \item When a previously visited node $u$ is encountered from $v$ through an edge $e$, then $e$ must be part of a cycle. The cycle starts at $u$, which must be part of the current path. Removing any edge from this path will break the cycle. We use our doubly-linked list to find the heaviest edge and remove it from the solution.
+    \item When backtracking, remove nodes from the current path.
   \end{itemize}
-  \item When all nodes have been marked, we obtain a Minimum Spanning Tree.
+  \item After all nodes have been marked, we obtain a Minimum Spanning Tree.
 \end{enumerate}
 
 \noindent
-Since each node and edge are used exactly once, the algorithm obtains an MST in time $O(|V| + |E|)$.
+Since each node and edge are used exactly once, traversing the graph takes time $O(|V| + |E|)$. When searching for an edge to remove in order to break a cycle, we traverse the current path's list, of length at most $|V|$. There are $k$ such cycles, therefore our algorithm has a running time in $0(|V| + |E| + k \cdot |V|) = O(|V| + |E|)$.

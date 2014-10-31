@@ -1,1 +1,18 @@
 % Devise an MST algorithm for a particular family of graphs
+
+We focus on the family of graphs which have a subset of $k$ edges whose removal turns the graph into a tree. Let $G = (E, V)$ a graph of this family and $E' \subseteq E$ the subset of edges of size $|E'| = k$.
+
+If edges are not weighted (or all have unit weight), any tree of $G$ is an MST. Therefore $G' = (E \backslash E', V)$ is an MST. We can build $G'$ in linear time using Depth-First search in $G$:
+
+\begin{enumerate}
+  \item Start at any vertex $v$.
+  \item Explore the graph in a depth-first fashion:
+  \begin{itemize}
+    \item Each time a new node is encountered, mark it as visited and add the edge used to the MST.
+    \item If an edge $e$ allows to go from the current vertex to a previously visited vertex, then it must be part of the cycle. We do not include $e$ in the MST.
+  \end{itemize}
+  \item When all nodes have been marked, we obtain a Minimum Spanning Tree.
+\end{enumerate}
+
+\noindent
+Since each node and edge are used exactly once, the algorithm obtains an MST in time $O(|V| + |E|)$.

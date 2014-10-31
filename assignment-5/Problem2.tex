@@ -1,1 +1,37 @@
 % Produce the number n starting from 1 using two operations (greedy strategy)
+
+\section{The naive greedy strategy does not always produce the optimal solution}
+
+With $n = 10$, we show that the greedy strategy produces a non-optimal solution.
+
+\begin{center}
+  \begin{tabular}{|r|cr|c|}
+    \hline
+    \multicolumn{2}{|c|}{Greedy} & \multicolumn{2}{|c|}{Optimal} \\
+    \hline
+    Operation & Result & Operation & Result \\
+    \hline
+               &  1 &            &  1 \\
+    $\times 2$ &  2 & $\times 2$ &  2 \\
+    $\times 2$ &  4 & $\times 2$ &  4 \\
+    $\times 2$ &  8 & $+1$       &  5 \\
+    $\times 2$ &  9 & $\times 2$ & 10 \\
+    $+1$       & 10 & \multicolumn{2}{c|}{} \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\section{Another greedy strategy}
+
+Our intuition is that when producing $n$, we should always try to reach intermediate steps where we can use the $\times 2$ operation. Moreover, the larger the number multiplied, the more efficient it is to use the multiplication. This leads us to build the solution in reverse. We propose the following algorithm:
+
+\begin{enumerate}
+  \item Start with $i = n$
+  \item While $i \neq 1$, repeat:
+  \begin{itemize}
+    \item If $i$ is even, divide by two (corresponding to $\times 2$ in the solution)
+    \item Otherwise, subtract one (corresponding to $+1$ in the solution)
+  \end{itemize}
+\end{enumerate}
+
+Let us show that this algorithm produces the optimal solution. For a given $n$, suppose there exists an optimal solution $OPT$ shorter that our solution. Then there is a subsequence of operations in $OPT$, producing the same result from the same starting number, but which uses less operations.

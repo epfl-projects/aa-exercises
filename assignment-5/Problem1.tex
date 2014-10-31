@@ -1,1 +1,17 @@
 % Cover a set of points on the real line (greedy strategy - approximation bound)
+
+\section{Greedy does not always produce the optimal solution}
+
+Consider the following set of points: ${0.1, 0.8, 1.2, 1.9}$. In this example:
+\begin{itemize}
+  \item The greedy algorithm generates (in order) the following \textbf{three} intervals: $[0.8; 1.8[, [0.1; 1.1[, [1.9, 2.9[$
+  \item The optimal solution OPT covers all points with only \textbf{two} intervals: $[0; 1[, [1, 2[$
+\end{itemize}
+
+\section{Quality of the greedy solution}
+
+From the previous counter-example, we know that the approximation ratio is bounded below by $\frac{3}{2}$. Let us show that the approximation ratio is also bounded above by $2$.\\
+
+Superimposing the two solutions, we claim that an interval of OPT cannot intersect with more than two intervals of Greedy. Suppose Greedy contains three intervals such that the intersection of the three is not empty. Then it must be the case that we can cover the same points with only two intervals. Since Greedy only creates an interval if there's at least one point not covered, it will never add a third overlapping interval.
+
+Therefore, if OPT covers all points with $k$ intervals, Greedy uses at most $2k$ intervals.

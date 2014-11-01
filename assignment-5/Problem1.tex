@@ -12,6 +12,10 @@ Consider the following set of points: ${0.1, 0.8, 1.2, 1.9}$. In this example:
 
 From the previous counter-example, we know that the approximation ratio is bounded below by $\frac{3}{2}$. Let us show that the approximation ratio is also bounded above by $2$.\\
 
-Superimposing the two solutions, we claim that an interval of OPT cannot intersect with more than two intervals of Greedy. Suppose Greedy contains three intervals such that the intersection of the three is not empty. Then it must be the case that we can cover the same points with only two intervals. Since Greedy only creates an interval if there's at least one point not covered, it will never add a third overlapping interval.
+Superimposing the two solutions, we claim that for each interval of OPT, it cannot intersect with more than two intervals of Greedy.
 
-Therefore, if OPT covers all points with $k$ intervals, Greedy uses at most $2k$ intervals.
+We prove the above claim by contradiction. Suppose three intervals in Greedy solution intersect with an interval in the OPT solution. It implies that the three intervals cover some common range on the axis. Then at least two intervals of the three share a common range more than $\frac{1}{2}$ unit length.
+
+Let's analyse how overlapping can occur in the Greedy algorithm. If the newly added interval $m$ intersects with an already added interval $p$, it must also intersect with some other already added interval $q$($p$ and $q$ are disjoint). If it's not the case, we can always shift $m$ to be disjoint with $p$ while still cover equal or more points. The gap between $p$ and $q$ must be less than 1, or we can shift $m$ to be not intersecting with any interval and cover equal or more points. Now we can shift $m$ in such a way that it intersects with $p$ and $q$ less than $\frac{1}{2}$ unit length. So in the Greedy algorithm two intervals overlap less than $\frac{1}{2}$ unit length. Thus it's impossible for three intervals to cover some common range on the axis. This contradicts with our assumption.\\
+
+Therefore, for each interval of OPT, it cannot intersect with more than two intervals of Greedy. If OPT covers all points with $k$ intervals, Greedy uses at most $2k$ intervals.

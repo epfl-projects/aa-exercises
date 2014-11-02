@@ -7,7 +7,7 @@ We focus on the family of graphs which have a subset of $k$ edges whose removal 
   \item Explore the graph in a depth-first fashion, maintaining a doubly-linked list of the current path.
   \begin{itemize}
     \item When a new node $v$ is encountered through an edge $e$: mark $v$ as visited, add $v$ to the current path list and add $e$ to the MST.
-    \item When a previously visited node $u$ is encountered from $v$ through an edge $e$, then $e$ must be part of a cycle. The cycle starts at $u$, which must be part of the current path. Removing any edge from this path will break the cycle. We use our doubly-linked list to find the heaviest edge and remove it from the solution.
+    \item When a previously visited node $u$ is encountered from $v$ through an edge $e$, then $e$ must be part of a cycle. The cycle starts at $u$, which must be part of the current path. Removing any edge from this path will break the cycle. We use our doubly-linked list to find the heaviest edge of the cycle and remove it from the solution in time $O(|V|)$.
     \item When backtracking, remove nodes from the current path.
   \end{itemize}
   \item After all nodes have been marked, we obtain a Minimum Spanning Tree.

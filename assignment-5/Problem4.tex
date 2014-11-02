@@ -2,39 +2,39 @@
 
 \section{A connected bipartite graph on $2n+1$ vertices does not have a unique maximum matching}
 
-Denote the connected bipartitie graph as $G = (X \cup Y, E)$. We suppose that there exists a unique maximum matching, which we denote as $M$.
+Denote the connected bipartite graph as $G = (X \cup Y, E)$. We suppose that there exists a unique maximum matching, denoted $M$.
 
-Because we have odd numbers of vertices, and a matching can only cover even numbers of vertices, so there must exist a vertice which is not covered by the maximum matching. We denote the vertex which is not covered by maximum matching as $v$. Without loss of generality, we suppose $v \in X$.
+Because we have odd numbers of vertices, and a matching can only cover even numbers of vertices, there must exist a vertex which is not covered by $M$, denoted $v$. Without loss of generality, we suppose $v \in X$.
 
-As this is a connected bipartite graph, there must exist a vertex $w \in Y$, such that there's an edge between $v$ and $w$. $w$ must be in the maximum matching $M$, or we can add edge $(v,w)$ to $M$ to make a bigger matching.
+As this is a connected bipartite graph, there must exist a vertex $w \in Y$, such that there's an edge between $v$ and $w$. $w$ must be in the maximum matching $M$, otherwise we could add an edge $(v,w)$ to $M$ to make a bigger matching.
 
-Now consider the edge in the maximum matching that contains $w$. We denote the other vertex of the edge as $v'$,  we have $v' \in X$ because $w \in Y$. Then consider the matching $M'$ which is formed by removing edge $(v',w)$ from $M$ and ading edge $(v, w)$. It's obvious $M'$ is also a maximum matching, so that the maximum matching is not unique.
+Now consider the edge in $M$ which points to $w$. We denote the other vertex of the edge as $v'$. We have $v' \in X$ because $w \in Y$. Then consider the matching $M'$ which is formed by removing edge $(v',w)$ from $M$ and ading edge $(v, w)$. It's obvious $M'$ is also a maximum matching, so we conclude that the maximum matching is not unique.
 
 \section{The maximum number of edges for a unique maximum matching is $2n-1$}
 
 For easier discussion, let's denote the graph as $G = (X \cup Y, E)$. The claim above follows trivially from the two propositions below.
 
-\subsection{There's no unique maximum matching if there're more than $2n-1$ edges}
+\subsection{There's no unique maximum matching if there are more than $2n-1$ edges}
 
-Suppose there's a unique maximum matching which we denote as $M$. If there're more than $2n-1$ edges in a graph, then from graph theory we know there's at least one cycle $C$ in the graph. We can prove following properties of the cycle $C$:
+Suppose there's a unique maximum matching which we denote $M$. If there are more than $2n-1$ edges in a graph, then from graph theory we know there's at least one cycle $C$ in the graph. In the case of a bipartite graph, we can prove following properties about $C$:
 
 \begin{enumerate}
-  \item The cycle has even number of edges. It's because that by traversing around the a cycle, we must travel even rounds between $X$ and $Y$ in order to get back to the origin.
-  \item The cycle has even number of vertices. As in a cycle, the number of vertices and edges are the same, so the cycle also have even vertices.
-  \item Half of the edges of the cycle are in $X$, half are in $Y$. When traversing around the cycle, we travel back and forth between $X$ and $Y$ without passing any vertex twice in the middle, so half of the vertices are on $X$, half of the vertices are on $Y$.
-  \item All vertices of the cycle are matched in the unique maximum match $M$. If there exists one vertex which is not matched in $M$, following the same argument in previous section, we can show that either $M$ is not the maximum matching or $M$ is not unique.
+  \item The cycle has an even number of edges. Indeed, by traversing $C$, we must travel even rounds between $X$ and $Y$ in order to get back to the origin.
+  \item The cycle has an even number of vertices. Since in any cycle, the number of vertices and edges are the same, this follows from the previous claim.
+  \item Half of the edges of the cycle are in $X$, half are in $Y$. When traversing around the cycle, we travel back and forth between $X$ and $Y$ without passing any vertex twice in the middle, so half of the vertices are in $X$, and the other half in $Y$.
+  \item All vertices of the cycle are matched in the unique maximum match $M$. If there exists one vertex which is not matched in $M$, following the same argument as in the previous section, we can show that either $M$ is not the maximum matching or $M$ is not unique.
 \end{enumerate}
 
 Because all vertices of cycle $C$ are in the unique maximum matching $M$, then we have:
 
 \begin{enumerate}
-  \item All edges of cycle $C$ in the maximum matching are not consecutive, or a vertex will have two edges, it's not a matching at all.
-  \item Exactly half of edges of the cycle $C$ are in the maximum matching, or some vertex will not be matched in the maximum matching.
+  \item All edges of $C$ in the maximum matching are not consecutive, otherwise a vertex would have two edges in $M$, which then couldn't possibly be a matching.
+  \item Exactly half the edges of the cycle $C$ are in the maximum matching, otherwise some vertex would not be matched in $M$.
 \end{enumerate}
 
-From the two observations above, we can create another maximum matching by replace the half of edges of cycle $C$ in the maximum matching $M$ by the other half of edges. Thus the maximum matching $M$ is also not unique in this case.
+From the two observations above, we can create another maximum matching by replacing the half of edges of cycle $C$ in the maximum matching $M$ by the other half of the edges. Thus the maximum matching $M$ is also not unique in this case.
 
-To summarize, if there're more than $2n-1$ edges in a connected bipartite graph of $2n$ vertices, then there's no unique maximum matching.
+To summarize, if there are more than $2n-1$ edges in a connected bipartite graph of $2n$ vertices, then there's no unique maximum matching.
 
 \subsection{There exists a connected bipartite graph of $2n-1$ edges which has unique maximum matching}
 

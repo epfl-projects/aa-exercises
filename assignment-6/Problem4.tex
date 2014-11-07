@@ -1,1 +1,11 @@
 % Extend a binary classifier to work with k classes
+We propose the following two approaches to extending a binary classifier to work with $k$ classes:
+
+\begin{enumerate}
+  \item ``One versus all'': run $k$ rounds of the binary classifier, where at round $i$ the two groups are class $i$ versus a group made of all other classes. We assign the class corresponding to the most successful run.
+  \item ``Binary search'': instead of running one group against all others, we can separate classes evenly, and recursively compare $\frac{k}{2}$ groups.
+\end{enumerate}
+
+The first approach requires $k$ runs, which may prove expensive with large datasets and dimensionality of the input. Approach 2, only requires $\Theta(\log_2(k))$ runs.
+
+On the other hand, in real world applications, the dataset may very well comprise noise. The second approach is then more prone to misclassification, since it may eliminate the correct class early on in the process and never consider it again. The first approach would then be more resilient.

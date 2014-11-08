@@ -1,8 +1,9 @@
 digraph G {
+  rankdir=LR;
   s;
   t;
   u;
-  a;
+  a [color=red];
   s -> a;
   a -> u;
   u -> a;

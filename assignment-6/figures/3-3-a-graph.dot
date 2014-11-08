@@ -1,0 +1,11 @@
+digraph G {
+  rankdir=LR;
+  s;
+  t;
+  u;
+  a;
+  s -> u;
+  s -> a;
+  a -> t;
+  t -> u;
+}

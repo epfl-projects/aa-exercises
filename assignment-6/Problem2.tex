@@ -2,16 +2,15 @@
 Say out of $n$ branches $x$ branches are moved to a new city (say city $B$) while the remaining $n-x$ branches remain in the same city (say city $A$). If that is the case, the total cost incurred is as follows:
 
 \begin{center}
-$c = \sum\limits_{i \in A} a_i + \sum\limits_{i \in B} b_i + \sum\limits_{i \in A, j \in B} c_{ij} $
+$c = \sum\limits_{i \in A} a_i + \sum\limits_{j \in B} b_j + \sum\limits_{i \in A, j \in B} c_{ij} $
 \end{center}
-
 
 Now lets reformulate the problem as a network flow problem. Let a graph $G$, in which we create one vertex for each of the  $n$ branches. We add edges from each vertices to all others (without self-loop). We set the capacity of these edges to $c_{ij}$ (which is the same as the cost incurred if the branches $i$ and $j$ were in different cities). Also we introduce a source $s$ and a sink $t$.
 
 Now we add edges from the source $s$ to all the vertices and set the capacity of each edge $(s, v_i)$ to $b_i$. For the sink $t$, we add edges $(v_i, t)$ from all the vertices and set their capacity to $a_i$. Now any cut $(A, B)$ in such a graph would have the following capacity:
 
 \begin{center}
-$c'(A, B) = \sum\limits_{i \in A} a_i + \sum\limits_{i \in B} b_i + \sum\limits_{i \in A and j \in B} c_{ij} $
+$c'(A, B) = \sum\limits_{i \in A} a_i + \sum\limits_{j \in B} b_j + \sum\limits_{i \in A, j \in B} c_{ij} $
 \end{center}
 
 We can see that the capacity $c$ and cost $c'$ are the same. Hence finding an assignment that minimizes the cost is equivalent to finding a min-cut in network $G$. The vertices in the source side of the cut would then represent branches that remain in the same city while the vertices in the sink side of the cut would represent branches that are moved to the new city under optimum assignment.

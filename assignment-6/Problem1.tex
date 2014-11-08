@@ -2,7 +2,7 @@
 
 Suppose the matrix $M$ is $m \times n$, the element in row $i$, column $j$ is $M(i, j)$. Let's denote the sum of all elements in the matrix as $Sum(M)$.
 
-We first construct a bipartite graph $B = G(X \cap Y, E)$ as follows:
+We first construct a bipartite graph $B = G(X \cup Y, E)$ as follows:
 
 \begin{itemize}
   \item $X$ has $n$ vertices and $Y$ has $m$ vertices.
@@ -20,7 +20,7 @@ Then we augment the bipartite graph $B$ to a network $N$ as follows:
 Then we can prove following properties about the network flow:
 
 \begin{itemize}
-  \item \textit{The maxflow of the network is less or equal than $Sum(M)$}. There exists a cut $(\{s\}, X \cap Y \cap \{t\})$ with capacity of $Sum(M)$. According to mincut-maxflow theorem, the maxflow is equal to the mincut capacity. So the maxflow should be less or equal than the capacity of any cut.
+  \item \textit{The maxflow of the network is less or equal than $Sum(M)$}. There exists a cut $(\{s\}, X \cup Y \cup \{t\})$ with capacity of $Sum(M)$. According to mincut-maxflow theorem, the maxflow is equal to the mincut capacity. So the maxflow should be less or equal than the capacity of any cut.
   \item \textit{The maxflow of the network is equal or greater than $Sum(M)$}. If we arrange the flow of each edge $(x_i, y_j)$ between $X$ and $Y$ as the corresponding element $M(i, j)$ in the matrix, and the edges $(s, x_i)$ and $(x_j, t)$ are fully saturated, then we have a network flow of $Sum(M)$. So the maxflow should be equal or greater than $Sum(M)$.
 \end{itemize}
 

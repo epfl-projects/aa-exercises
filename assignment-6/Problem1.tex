@@ -1,1 +1,34 @@
 % Rounding elements of a matrix (as a network flow problem)
+
+Suppose the matrix $M$ is $m \times n$, the element in row $i$, column $j$ is $M(i, j)$. Let's denote the sum of all elements in the matrix as $Sum(M)$.
+
+We first construct a bipartite graph $B = G(X \cap Y, E)$ as follows:
+
+\begin{itemize}
+  \item $X$ has $n$ vertices and $Y$ has $m$ vertices.
+  \item Each vertex in $X$ is connected to each vertex in $Y$.
+\end{itemize}
+
+Then we augment the bipartite graph $B$ to a network $N$ as follows:
+
+\begin{itemize}
+  \item Set the capacity of each edge between $X$ and $Y$ as 1.
+  \item Add a source $s$ and connect it to each vertex in $X$. The capacity of $(s, x_i)$ is the sum of the row $i$ of matrix $M$, which is an integer.
+  \item Add a source $t$ and connect it to each vertex in $Y$. The capacity of $(x_j, t)$ is the sum of the column $j$ of matrix $M$, which is an integer.
+\end{itemize}
+
+Then we can prove following properties about the network flow:
+
+\begin{itemize}
+  \item \textit{The maxflow of the network is less or equal than $Sum(M)$}. There exists a cut $(\{s\}, X \cap Y \cap \{t\})$ with capacity of $Sum(M)$. According to mincut-maxflow theorem, the maxflow is equal to the mincut capacity. So the maxflow should be less or equal than the capacity of any cut.
+  \item \textit{The maxflow of the network is equal or greater than $Sum(M)$}. If we arrange the flow of each edge $(x_i, y_j)$ between $X$ and $Y$ as the corresponding element $M(i, j)$ in the matrix, and the edges $(s, x_i)$ and $(x_j, t)$ are fully saturated, then we have a network flow of $Sum(M)$. So the maxflow should be equal or greater than $Sum(M)$.
+\end{itemize}
+
+From the two facts above, we know that the network $N$ has a maxflow $Sum(M)$. And with the fact that the capacity of each edge in the network is integer, using \textit{preflow-push} or \textit{Ford-Fulkerson} algorithm, we can consturct a maxflow so that the flow through each edge is an integer. We have following facts about the maxflow:
+
+\begin{itemize}
+  \item{Each edge $(x_i, y_j)$ between $X$ and $Y$} has a flow of 0 or 1.
+  \item{The the edges $(s, x_i)$ and $(x_j, t)$ are fully saturated}.
+\end{itemize}
+
+Then we can construct a matrix $M'$ with $M'(i, j) = flow(edge(x_i, y_i))$. It's obvious that in the matrix $M'$ all elements are either 0 or 1, and the sum of each row or column is equal to the original matrix $M$.

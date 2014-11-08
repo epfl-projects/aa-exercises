@@ -28,7 +28,7 @@ From the two facts above, we know that the network $N$ has a maxflow $Sum(M)$. A
 
 \begin{itemize}
   \item{Each edge $(x_i, y_j)$ between $X$ and $Y$} has a flow of 0 or 1.
-  \item{The the edges $(s, x_i)$ and $(x_j, t)$ are fully saturated}.
+  \item{The the edges $(s, x_i)$ and $(y_j, t)$ are fully saturated}.
 \end{itemize}
 
 Then we can construct a matrix $M'$ with $M'(i, j) = flow(edge(x_i, y_i))$. It's obvious that in the matrix $M'$ all elements are either 0 or 1, and the sum of each row or column is equal to the original matrix $M$.

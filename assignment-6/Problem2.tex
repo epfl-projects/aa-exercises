@@ -1,21 +1,21 @@
 % Moving to another town (as a network flow problem)
-Say out of $n$ branches $x$ branches are moved to a new city (say city $B$) while the remaining $n-x$ branches remain in the same city (say city $A$). If that is the case, the total cost incurred is as follows:
+We have $n$ branches. Say out of $n$ branches $x$ branches are moved to a new city ($B$) while the remaining $(n - x)$ branches remain in the same city ($A$). If that is the case, the total cost incurred is as follows:
 
 \[
   c = \sum\limits_{i \in A} a_i + \sum\limits_{j \in B} b_j + \sum\limits_{i \in A, j \in B} c_{ij}
 \]
 
-Now lets reformulate the problem as a network flow problem. Let's consider a graph $G$, in which we create one vertex for each of the  $n$ branches. We add edges from each vertices to all others (without self-loop). We set the capacity of these edges to $c_{ij}$ (which is the same as the cost incurred if the branches $i$ and $j$ were in different cities). Also we introduce a source $s$ and a sink $t$.
+We now reformulate the problem as a network flow problem. Let's consider a graph $G$, in which we create one vertex for each of the  $n$ branches. We add edges from each vertices to all others (without self-loop). We set the capacity of these edges to $c_{ij}$ (which is the same as the cost incurred if the branches $i$ and $j$ were in different cities). Also we introduce a source $s$ and a sink $t$.
 
-Now we add edges from the source $s$ to all the vertices and set the capacity of each edge $(s, v_i)$ to $b_i$. For the sink $t$, we add edges $(v_i, t)$ from all the vertices and set their capacity to $a_i$. Now any $s-t$ cut $(A, B)$ in such a graph would have the following 3 types of edges:
+Now we add edges from the source $s$ to all the vertices and set the capacity of each edge $(s, v_i)$ to $b_i$. For the sink $t$, we add edges $(v_i, t)$ from all the vertices and set their capacity to $a_i$. Now any $s-t$ cut $(A, B)$ in such a graph can have the following three types of edges:
 
 \begin{itemize}
 \item edges $(v_i, t)$ where $v_i \in A$ contributing $a_i$ to the cut capacity
 \item edges $(s, v_j)$ where $v_j \in B$ contributing $b_j$ to the cut capacity
-\item edges $(v_i, v_j)$ where $v_i \in A$ and $v_j \in B$ contributing $c_{ij}$ to the cut capacity 
+\item edges $(v_i, v_j)$ where $v_i \in A$ and $v_j \in B$ contributing $c_{ij}$ to the cut capacity
 \end{itemize}
 
-Hence the capacity of such s-t cut is given by \\
+Hence the capacity of such an $s-t$ cut is given by:\\
 
 \[
   c'(A, B) = \sum\limits_{i \in A} a_i + \sum\limits_{j \in B} b_j + \sum\limits_{i \in A, j \in B} c_{ij}
@@ -23,4 +23,6 @@ Hence the capacity of such s-t cut is given by \\
 
 
 
+
 We can see that the capacity $c'$ and cost $c$ are the same. Hence finding an assignment that minimizes the cost is equivalent to finding a min-cut in network $G$, which in turn is the same as finding max flow in the network for which we can use any polynomial time algorithm such as the Ford-Fulkerson algorithm. The vertices in the source side of the cut would then represent branches that remain in the same city while the vertices in the sink side of the cut would represent branches that are moved to the new city under optimum assignment.
+

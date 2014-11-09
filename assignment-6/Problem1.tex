@@ -24,13 +24,13 @@ We can prove following properties about the network flow:
   \item \textit{The maxflow of the network is equal or greater than $Sum(M)$}. If we arrange the flow of each edge $(x_i, y_j)$ between $X$ and $Y$ as the corresponding element $M(i, j)$ in the matrix, and the edges $(s, x_i)$ and $(x_j, t)$ are fully saturated, then we have a network flow of $Sum(M)$. So the maxflow should be equal or greater than $Sum(M)$.
 \end{itemize}
 
-From the two facts above, we know that the network $N$ has a maxflow $Sum(M)$. We also know that the capacity of each edge in the network is integer. Now let's introduce a theorem without proof(proof can be done by induction on the residual graph of \textit{Ford-Fulkerson Algorithm}):
+From the two facts above, we know that the network $N$ has a maxflow $Sum(M)$. We also know that the capacity of each edge in the network is integer. Now let's introduce a theorem without proof (proof can be done by induction on the residual graph of \textit{Ford-Fulkerson Algorithm}):
 
 \begin{quote}
-If all capacities in the flow network are integers, then there's a maximum flow f for which every flow value f(e) is an integer.
+If all capacities in the flow network are integers, then there's a maximum flow $f$ for which every flow value $f(e)$ is an integer.
 \end{quote}
 
-According to the theorem above, we can consturct a maxflow so that the flow through each edge is an integer. We have following facts about the maxflow:
+According to the theorem above, we can construct a maxflow so that the flow through each edge is an integer. We have following facts about the maxflow:
 
 \begin{itemize}
   \item{Each edge $(x_i, y_j)$ between $X$ and $Y$} has a flow of 0 or 1.

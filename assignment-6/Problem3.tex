@@ -16,12 +16,12 @@ As before, running any polynomial time maxflow algorithm gives us a flow $F$, fr
 \section{Joining paths to form $k$ \textbf{edge}-disjoint paths}
 Suppose there exist $k$ edge-disjoint paths from $s$ to $u \in V$, as well as $k$ edge-disjoint paths from $u$ to $t$. Let us show by construction that we then have at least $k$ edge-disjoint paths from $s$ to $t$.
 
-We construct new paths $s \ra t$ by joining two paths $s \ra u$ and $u \ra t$. Suppose there exists an edge $e$ wich is used by two distinct new paths $p_1$ and $p_2$. Then it must be the case that:
+We construct new paths $s \ra t$ by joining two subpaths $s \ra u$ and $u \ra t$. Suppose there exists an edge $e$ wich is used by two distinct new paths $p_1$ and $p_2$. Then it must be the case that:
 
 \begin{enumerate}
   \item $e$ belongs to two paths $s \ra u$, which is impossible by assumption.
   \item Or $e$ belongs to two paths $u \ra t$, which is impossible by assumption.
-  \item Or $e$ belongs to a path $s \ra u$ and a path $u \ra t$. But then, since $e$ can be used to reach $t$, we can employ it as a shortcut. We then simply need to make sure to use these two subpaths together, forming a new path $s \ra t$ bypassing $u$.
+  \item Or $e$ belongs to a path $s \ra u$ and a path $u \ra t$. But then, since $e$ can be used to reach $t$, we can employ it as a shortcut, cutting out a cycle. We then simply need to make sure to use these two subpaths together, forming a new path $s \ra t$ bypassing $u$.
 \end{enumerate}
 
 We can generalize this idea to several conflicts between subpaths, allowing us to generate $k$ edge-distinct paths $s \ra t$ provided we select the subpaths carefully and always employ such ``shortcuts''.

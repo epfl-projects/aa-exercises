@@ -24,7 +24,7 @@ We construct new paths $s \ra t$ by joining two subpaths $s \ra u$ and $u \ra t$
   \item Or $e$ belongs to a path $s \ra u$ and a path $u \ra t$. But then, since $e$ can be used to reach $t$, we can employ it as a shortcut, cutting out a cycle. We then simply need to make sure to use these two subpaths together, forming a new path $s \ra t$ bypassing $u$.
 \end{enumerate}
 
-We can generalize this idea to several conflicts between subpaths, allowing us to generate $k$ edge-distinct paths $s \ra t$ provided we select the subpaths carefully and always employ such ``shortcuts''.
+Note the order of choice of the subpaths is important. However, if conflicts are created, we are always free to choose a different combination of unused subpaths. Finally, we generate $k$ edge-distinct paths $s \ra t$ provided we select the subpaths carefully and always employ such ``shortcuts''.
 
 \section{Joining paths to form $k$ \textbf{node}-disjoint paths}
 Suppose there exist $k$ node-disjoint paths from $s$ to $u \in V$, as well as $k$ node-disjoint paths from $u$ to $t$. We provide a counter-example with $k = 2$, showing that this does not imply there exists $k$ node-disjoint paths from $s$ to $t$.

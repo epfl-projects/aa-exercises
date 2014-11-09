@@ -1,11 +1,18 @@
 digraph G {
   rankdir=LR;
   s;
+  a;
+  b;
+  u [color=red];
+  c;
+  d;
   t;
-  u;
-  a [color=red];
   s -> a;
+  s -> b;
   a -> u;
-  u -> a;
-  a -> t;
+  b -> u;
+  u -> c;
+  u -> d;
+  c -> t;
+  d -> t;
 }

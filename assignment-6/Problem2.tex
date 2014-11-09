@@ -23,4 +23,4 @@ Hence the capacity of such s-t cut is given by \\
 
 
 
-We can see that the capacity $c'$ and cost $c$ are the same. Hence finding an assignment that minimizes the cost is equivalent to finding a min-cut in network $G$. The vertices in the source side of the cut would then represent branches that remain in the same city while the vertices in the sink side of the cut would represent branches that are moved to the new city under optimum assignment.
+We can see that the capacity $c'$ and cost $c$ are the same. Hence finding an assignment that minimizes the cost is equivalent to finding a min-cut in network $G$, which in turn is the same as finding max flow in the network for which we can use any polynomial time algorithm such as the Ford-Fulkerson algorithm. The vertices in the source side of the cut would then represent branches that remain in the same city while the vertices in the sink side of the cut would represent branches that are moved to the new city under optimum assignment.

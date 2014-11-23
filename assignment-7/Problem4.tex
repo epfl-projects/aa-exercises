@@ -1,9 +1,10 @@
 % Triangularize a convex polygon
-Let's denote the vertices of a convex sub-polygon with $i$ \textit{continuous vertices} in the original polygon as $(p_1, p_2, .., p_i)$, the vertices are in counter-clockwise order and only edge $(p_i, p_1)$ is not in the original polygon. Now consider the two edges $(p_i, p_1)$ and $(p_1, p_2)$ at vertex $p_1$. For any triangulation, there can be two cases:
+Let's denote the vertices of a convex sub-polygon with $i$ \textit{continuous vertices} in the original polygon as $(p_1, p_2, .., p_{i-1}, p_i)$, the vertices are in counter-clockwise order and only edge $(p_i, p_1)$ is not in the original polygon. Now consider the vertices $p_1, p_2, p_{i-1}$ and $p_i$. For any triangulation, there are three cases:
 
 \begin{itemize}
-\item{Case 1}: $(p_i, p_1)$ and $(p_1, p_2)$ are edges of the same triangle. In this case, $(p_2, p_i)$ must be a chord in order to form a triangle.
-\item{Case 2}: $(p_i, p_1)$ and $(p_1, p_2)$ are edges of different triangles. In this case, there must exist $k$($2 < k < i$) such at $(p_1, p_k)$ is a chord.
+\item{Case 1}: $(p_1, p_i, p_2)$ is a triangle and $(p_2, p_i)$ is a chord.
+\item{Case 2}: $(p_1, p_i, p_{i-1})$ is a triangle and  $(p_1, p_{i-1})$ is a chord.
+\item{Case 3}: $(p_1, p_i, p_k)$ is a triangle($2 < k < i-1$), $(p_1, p_k)$ and $(p_i, p_k)$ are both chords.
 \end{itemize}
 
 Let's denote $OPT(p_1, p_2, .., p_i)$ as the optimal trianglation for polygon $(p_1, p_2, .., p_i)$, then we have:
@@ -11,17 +12,15 @@ Let's denote $OPT(p_1, p_2, .., p_i)$ as the optimal trianglation for polygon $(
 \[
 OPT(p_1, p_2, .., p_i) = min \left\{
   \begin{array}{ll}
-    OPT(p_2, p_3, .., p_i) + length(p_2, p_i) & Case 1 \\
-    OPT(p_1, p_2, p_3) + OPT(p_3, p_4, .., p_i, p_1) + length(p_1, p_4)  & k = 3 \\
-    OPT(p_1, p_2, p_3, p_4) + OPT(p_4, p_5, .., p_i, p_1) + length(p_1, p_4)  & k = 4 \\
-    ... & \\
-    OPT(p_1, p_2, .., p_{i-1}) + OPT(p_{i-1}, p_i, p_1) + length(p_1, p_{i-1})  & k = i - 1 \\
+    OPT(p_2, p_3, .., p_i) + cost(p_2, p_i) & Case 1 \\
+    OPT(p_1, p_2, .., p_{i-1}) + cost(p_1, p_{i-1})  & Case 2 \\
+    OPT(p_1, p_2, .., p_k) + OPT(p_k, p_{k+1}, p_i) + cost(p_1, p_k) + cost(p_k, p_i)  & Case 3 \\
   \end{array}\right.
 \]
 
-The equation above shows that, the optimal triangulation solutions for polygon $(p_1, p_2, .., p_i)$ can be built from solutions to the subproblems. If the solutions to all subproblems are given, to solve current problem we need $i-2$ steps(there are $i-2$ cases in total).
+The equation above shows that, the optimal triangulation solutions for polygon $(p_1, p_2, .., p_i)$ can be built from solutions to the subproblems. If the solutions to all subproblems are given, to solve current problem we need $i-2$ steps(there are $i-4$ sub-cases for Case 4).
 
-Another important fact to notice is that, given that the vertices of the sub-polygon $P$ are \textit{continuous} in the original polygon, the optimal solution for $P$ only depends on optimal solutions of sub-polygons whose vertices are also \textit{continuous} in the original polygon. This fact is obvious from the $i-2$ cases above. This property is very important, as it greatly reduces the number of polygons we have to deal with.
+Another important fact to notice is that, given that the vertices of the sub-polygon $P$ are \textit{continuous} in the original polygon, the optimal solution for $P$ only depends on optimal solutions of sub-polygons whose vertices are also \textit{continuous} in the original polygon. This fact is obvious from the three cases above. This property is very important, as it greatly reduces the number of polygons we have to deal with.
 
 The algorithm runs in rounds, starts from the base cases and builds the solution incrementally. In $round_j$, it computes the optimal solution for all sub-polygons with $j$ \textit{continous vertices} in the original polygon $(p_1, p_2, .., p_n)$:
 

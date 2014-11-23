@@ -1,1 +1,40 @@
 % Triangularize a convex polygon
+Let's denote the vertices of a convex sub-polygon with $i$ \textit{continuous vertices} in the original polygon as $(p_1, p_2, .., p_i)$, the vertices are in counter-clockwise order and only edge $(p_i, p_1)$ is not in the original polygon. Now consider the two edges $(p_i, p_1)$ and $(p_1, p_2)$ at vertex $p_1$. For any triangulation, there can be two cases:
+
+\begin{itemize}
+\item{Case 1}: $(p_i, p_1)$ and $(p_1, p_2)$ are edges of the same triangle. In this case, $(p_2, p_i)$ must be a chord in order to form a triangle.
+\item{Case 2}: $(p_i, p_1)$ and $(p_1, p_2)$ are edges of different triangles. In this case, there must exist $k$($2 < k < i$) such at $(p_1, p_k)$ is a chord.
+\end{itemize}
+
+Let's denote $OPT(p_1, p_2, .., p_i)$ as the optimal trianglation for polygon $(p_1, p_2, .., p_i)$, then we have:
+
+\[
+OPT(p_1, p_2, .., p_i) = min \left\{
+  \begin{array}{ll}
+    OPT(p_2, p_3, .., p_i) + length(p_2, p_i) & Case 1 \\
+    OPT(p_1, p_2, p_3) + OPT(p_3, p_4, .., p_i, p_1) + length(p_1, p_4)  & k = 3 \\
+    OPT(p_1, p_2, p_3, p_4) + OPT(p_4, p_5, .., p_i, p_1) + length(p_1, p_4)  & k = 4 \\
+    ... & \\
+    OPT(p_1, p_2, .., p_{i-1}) + OPT(p_{i-1}, p_i, p_1) + length(p_1, p_{i-1})  & k = i - 1 \\
+  \end{array}\right.
+\]
+
+The equation above shows that, the optimal triangulation solutions for polygon $(p_1, p_2, .., p_i)$ can be built from solutions to the subproblems. If the solutions to all subproblems are given, to solve current problem we need $i-2$ steps(there are $i-2$ cases in total).
+
+Another important fact to notice is that, given that the vertices of the sub-polygon $P$ are \textit{continuous} in the original polygon, the optimal solution for $P$ only depends on optimal solutions of sub-polygons whose vertices are also \textit{continuous} in the original polygon. This fact is obvious from the $i-2$ cases above. This property is very important, as it greatly reduces the number of polygons we have to deal with.
+
+The algorithm runs in rounds, starts from the base cases and builds the solution incrementally. In $round_j$, it computes the optimal solution for all sub-polygons with $j$ \textit{continous vertices} in the original polygon $(p_1, p_2, .., p_n)$:
+
+\begin{itemize}
+\item {$j = 3$}: there're $n$ such polygons(triangles), the optimal solution is 0 for all of them, no computation required.
+\item {$j = 4$}: there're $n$ such polygons, each polygon requires $j - 2 = 2$ steps.
+\item ...
+\item {$j = n-1$}: there're $n$ such polygons, each polygon requires $j - 2 = n-3$ steps.
+\item {$j = n$}: there's only one such polygon, it requires $j - 2 = n-2$ steps.
+\end{itemize}
+
+So in total, the complexity is as follows:
+
+\[
+  Cost(OPT) = \Sigma_{j=4}^{n-1}(j-2) \cdot n + n - 2 = \Theta(n^3)
+\]

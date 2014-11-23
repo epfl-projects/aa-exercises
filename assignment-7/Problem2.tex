@@ -14,4 +14,24 @@ If the edit distance (i.e. distance to the diagonal path in the edit matrix) exc
   \right.
 \]
 
-Then we notice that we need only evaluate cells $(i, j)$ such that $|i - j| > t$. There are at most $2t$ such cells per line. We may use a single vector representation along with a coordinates translation scheme to avoid storing an $n \times n$ matrix. With minor modifications on the algorithm's main loop bounds, we bring both time and memory performance to $O(2tn)$.
+Then we notice that we only need to evaluate cells $(i, j)$ such that $|i - j| > t$. There are at most $2t$ such cells per line.
+
+We use the same divide-and-conquer algorithm together with the standard dynamic programming algorithm $A$(as denoted in lecture notes). But instead of filling all $n$ entries on a row, the algorithm $A$ only fills in $2t$ entries per row.
+
+As now we only care $2t$ entries per row, and algorithm $A$ only requires storage of three rows, so the storage requirement now is $O(t)$.
+
+Now let's see what's the time performance:
+
+\begin{itemize}
+\item Running algorithm $A$ on the whole matrix to find optimal solution OPT takes $O(tn)$
+\item Running algorithm $A$ on the first $n/2$ rows and last $n/2$ rows(backward) takes $O(tn)$.
+\item Finding the $j$ on row $n/2$ such that $R_1[j] + R_2[j] = OPT$ takes $O(t)$.
+\end{itemize}
+
+So in total it takes $O(tn)$ to divide the problem to two subproblems. We have following recurrence relation:
+
+\[
+t(m,n) = t(j, n/2) + t(m−j,n/2) + \Theta(tn)
+\]
+
+Solving the equation above gives us $O(tn)$. So if $t$ is a constant, the memory usage is also constant and the time performance is linear.

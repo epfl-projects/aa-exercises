@@ -18,7 +18,7 @@ OPT(p_1, p_2, .., p_i) = min \left\{
   \end{array}\right.
 \]
 
-The equation above shows that, the optimal triangulation solutions for polygon $(p_1, p_2, .., p_i)$ can be built from solutions to the subproblems. If the solutions to all subproblems are given, to solve current problem we need $i-2$ steps(there are $i-4$ sub-cases for Case 4).
+The equation above shows that, the optimal triangulation solutions for polygon $(p_1, p_2, .., p_i)$ can be built from solutions to the subproblems. If the solutions to all subproblems are given, to solve current problem we need $i-2$ steps(there are $i-4$ sub-cases for Case 3).
 
 Another important fact to notice is that, given that the vertices of the sub-polygon $P$ are \textit{continuous} in the original polygon, the optimal solution for $P$ only depends on optimal solutions of sub-polygons whose vertices are also \textit{continuous} in the original polygon. This fact is obvious from the three cases above. This property is very important, as it greatly reduces the number of polygons we have to deal with.
 

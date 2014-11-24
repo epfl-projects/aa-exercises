@@ -50,8 +50,7 @@ From the observation that under optimal assignment the lines assigning courses t
 
 \begin{itemize}
 \item cost of mismatch between number of students $s_i$ and number of chairs $c_j$ (corresponding to characters in the sequence) is the absolute value of their difference, i.e $| c_i - s_j |$
-\item since $m \geq n$, i.e. number of classrooms has to be larger than number of courses, we disallow deletion of classrooms. Hence cost of deletion of classrooms is set to $\infty$
-\item cost of insertion of room is set to 0.   
+\item since $m \geq n$, i.e. number of classrooms has to be larger than number of courses, we disallow deletion of classrooms. Hence cost of deletion of classrooms is set to $\infty$ while the insertion is set to 0.
 \end{itemize}
 
 So the total cost of transforming sorted sequence $S$ to $C$ is just the sum of cost due to mismatches, which is what we are trying to minimize. Due to the fact that this is just a global sequence alignment problem the optimal matching takes $O(mn)$. The matching pairs can be found using backward tracking from entry $(s_n, c_m)$ to $(s_1, c_1)$. Each diagonal arrow in the backward path is a matching pair. The backward tracking takes $O(m + n)$.

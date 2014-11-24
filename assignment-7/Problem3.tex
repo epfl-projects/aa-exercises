@@ -23,7 +23,7 @@ Let the set $S$ contain as elements number of students in each course $i$ (denot
 
 We can observe that under optimal assignment the lines assigning courses to classrooms do not cross each other, else it would not be an optimal assignment. In other words, for course $i$ and $j$ with $s_i < s_j$, course $i$ is never assigned a classroom bigger than the one assigned to course $j$. This observation allows us to define subproblems to the original problem in an easy way.
 
-In the following, we introduce two algorithms, one run in $O(mn^2)$, one in $O(mn)$.
+In the following, we introduce two algorithms, one runs in $O(mn^2)$, one in $O(mn)$.
 
 \section{$O(mn^2)$ Algorithm}
 
@@ -53,4 +53,4 @@ We assume the classrooms and courses are sorted in ascending order. Now we turn 
 \end{array}
 \]
 
-As we know the standard \textit{Global Sequence Alignment} runs in $O(mn)$, so the optimal matching takes $O(mn)$. The matching pairs can be found using a backward tracking from entry $(s_n, c_m)$ to $(s_1, c_1)$. Each diagonal arrow in the backward path is a matching pair. The backward tracking takes $O(m + n)$.
+As we know the standard \textit{Global Sequence Alignment} runs in $O(mn)$, so the optimal matching takes $O(mn)$. The matching pairs can be found using backward tracking from entry $(s_n, c_m)$ to $(s_1, c_1)$. Each diagonal arrow in the backward path is a matching pair. The backward tracking takes $O(m + n)$.

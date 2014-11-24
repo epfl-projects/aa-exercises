@@ -1,8 +1,31 @@
 % Solve the recurrence relation for the running time of the global alignment algorithm
 
 We are given the following recurrence relation describing the running time of the divide-and-conquer modification of the DP algorithm for global alignment:
+
 \[
-  T(m, n) = T(j, \frac{n}{2}) + T(m - j, \frac{n}{2}) + \theta(m, n)
+  T(m, n) = T(j, \frac{n}{2}) + T(m - j, \frac{n}{2}) + \Theta(mn)
 \]
+
 \noindent
 with $j$ the index of the column chosen after running two alignment instances over the top and bottom half of the matrix.
+
+we can consider the two extreme cases: (1)where the division along a row is always even and (2)where it is always completely unbalanced. In the first case, the sum becomes:
+
+\[\def\arraystretch{1.5}
+\begin{array}{l l l}
+  T(m, n) & = & \Theta(mn) + \Theta(mn/4) + \Theta(mn/4) + \Theta(mn/16) +\\
+          &   & \Theta(mn/16) + \Theta(mn/16) + \Theta(mn/16) + ..  \\
+          & = & \Theta(mn)
+\end{array}
+\]
+
+In the second case, the one column never matters, the sum becomes:
+
+\[\def\arraystretch{1.5}
+\begin{array}{l l l}
+  T(m, n) & = & \Theta(mn) + \Theta(mn/2) + \Theta(mn/4) + \Theta(mn/8) + ..  \\
+          & = & \Theta(mn)
+\end{array}
+\]
+
+So the solution of the recurrence is $T(m, n) = \Theta(mn)$.

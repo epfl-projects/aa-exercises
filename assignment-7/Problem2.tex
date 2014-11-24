@@ -31,7 +31,7 @@ Now let's see what's the time performance:
 So in total it takes $O(tn)$ to divide the problem to two subproblems. We have following recurrence relation:
 
 \[
-t(m,n) = t(j, n/2) + t(m−j,n/2) + \Theta(tn)
+t(m,n) = t(j, n/2) + t(m-j,n/2) + \Theta(tn)
 \]
 
 Solving the equation above gives us $O(tn)$. So if $t$ is a constant, the memory usage is also constant and the time performance is linear.

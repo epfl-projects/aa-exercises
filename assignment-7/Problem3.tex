@@ -34,7 +34,16 @@ Now the recurrence relation for the subproblem can be formulated as :
 	$OPT(n', m') = \min\limits_{n'\leq k \leq m'} (OPT(n'-1, k-1) + |s_{n'} - c_{k}|)$
 \end{center}
 
-So we need to maintain an array of size $mn$ to find the optimal solution to the original problem, hence the  complexity $O(mn)$.
+So we need to maintain an array of size $mn$ and computing each matrix entry requires $O(m)$ computations, hence finding the optimal solution to the original problem requires $O(nm^2)$ computations.
 
+Now lets see if we can do better.
 
+From the observation that under optimal assignment the lines assigning courses to classrooms do not cross each other (for sorted sequences $S$ and $C$) we can formulate this problem as a sequence alignment problem. We modify the edit distances as follows:
+
+\begin{itemize}
+\item cost of mismatch between number of students $s_i$ and number of chairs $c_j$ (corresponding to characters in the sequence) is the absolute value of their difference, i.e $| c_i - s_j |$
+\item since $m \geq n$, i.e. number of classrooms has to be larger than number of courses, we disallow deletion of classrooms. Hence cost of deletion of classrooms is set to infinity while cost of insertion is set to 0.   
+\end{itemize}
+
+So the total cost of transforming sorted sequence $S$ to $C$ is just the sum of cost due to mismatches, which is what we are trying to minimize. Due to the fact that this is just a sequence alignment problem the complexity is $O(mn)$
 

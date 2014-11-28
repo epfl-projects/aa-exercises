@@ -1,1 +1,40 @@
 % Vertex with smallest balance in an unrooted, undirected tree.
+
+Let $T = (V, E)$ an unrooted, undirected tree. We aim to find the vertex with the smallest \textit{balance}.\\
+
+We start by noticing that removing any edge $e \in E$ separates $T$ into two subtrees $T_1$ and $T_2$ of size $k$ and $n - k$ respectively. Moreover, for all ``leaf edges'', that is edges with one end a node of degree $1$, the two subtrees must be of size $1$ and $n - 1$. From the definition, all leaves must then have a \textit{balance} of $n - 1$.\\
+
+For each edge $e = (u, v)$, we denote $DP[e][u]$ and $DP[e][v]$ as the number of nodes in the subtrees (rooted at $u$ and $v$ respectively) created by removing $e$. From the previous observation, we have that, for all edges $e = (l, v)$ with $l$ a leaf:
+
+\[
+\begin{array}{rcl}
+  DP[e][l] & = & 1 \\
+  DP[e][v] & = & n - 1
+\end{array}
+\]
+
+\noindent
+In the general case $e = (u, v)$, denoting $E_u$ the set of edges connected to $u$:
+
+\[
+\begin{array}{rcl}
+  DP[e][u] & = & {\displaystyle \sum_{e\prime \in E_u} DP[e\prime][v\prime]}\\
+  DP[e][v] & = & n - DP[e][u]
+\end{array}
+\]
+
+\noindent
+We propose the following steps:
+
+\begin{enumerate}
+  \item Initialization: identify the edges connected to leaves and fill in $DP[e][l]$, $DP[l][v]$
+  \item Traverse the tree in breadth-first order from the leaves, computing $DP[e][u]$, $DP[e][v]$ for each edge. If we need to use an entry of $DP$ that have not been computed yet, compute its value through a recursive call and memoize the result in $DP$.
+  \item When all entries of $DP$ have been completed, we can compute the balance of every vertex $u$ as:
+  \[
+    balance(u) = \max_{e = (u, v)} { DP[e][v] }
+  \]
+
+  \item Return the vertex with least balance.
+\end{enumerate}
+
+There are $|E|$ entries of $DP$ to compute. From the order of computation and the use of memoization, we compute each entry only once. Each entry iterates over the edges connected to a given vertex, but since there are no cycles and $T$ is connected, we are guaranted not to exceed an overall linear running time. Therefore we obtain a running time in $O(|E|)$ with memory requirement in $O(|E|)$.

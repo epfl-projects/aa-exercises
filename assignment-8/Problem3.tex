@@ -1,1 +1,26 @@
 % Parenthesize a series of divisions
+
+\begin{center}
+$x_1/x_2/x_3/ . . . /x_n$
+\end{center}
+
+We seek to parenthesize the above expression so as to maximize the quotient.
+
+Let $q(i, j)$ denote the parenthesization of the subexpression $x_i/ . . . /x_j$ that minimizes the quotient. Similarly let $Q(i, j)$ denote the parenthesization of the subexpression $x_i/ . . . /x_j$ that maximizes the quotient. Now we can set up a simple recursion as follows :
+
+\[
+\begin{array}{rcl}
+ q(i, i) = Q(i, i) & = & x_i \\
+ q(i, j) & = & \min\limits_{i < k \leq j} \left\{\frac{q(i, k-1)}{Q(k, j)}\right\} \\
+ Q(i, j) & = & \max\limits_{i < k \leq j} \left\{\frac{Q(i, k-1)}{q(k, j)}\right\}
+\end{array}
+\]
+
+So we need to maintain two tables $q(i,j)$ and $Q(i,j)$ in parallel. In addition we also keep track of what $k$ value was chosen for each subexpression $(i, j)$ for both objective functions  $q(i,j)$ and $Q(i,j)$ in oder to be able to track back and reconstruct the optimal parenthesization. This is the same approach as for the matrix chain multiplication problem. 
+We can see that there is an interdependence between the two objective functions  $q(i,j)$ and $Q(i,j)$ but at the time of computation of any entry in any of the tables all the relevant entries in both the tables would have already been computed since we add entries to both the tables in parallel.
+
+
+Now the complexity. We can see that the complexity is again the same as for the matrix chain multiplication problem. We maintain two $n \times n$ tables and each entry in those tables can be computed in $O(n)$ time, hence the time complexity $O(n^3)$.
+
+
+

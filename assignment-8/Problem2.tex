@@ -5,18 +5,16 @@ Let's consider the elements that are before $A[1]$ in the ordered output. There'
   \textit{If $P(1) = k$, then the elements before $A[1]$ in the output ordering are exactly the elements in $A[2], A[3], .., A[k]$.}
 \end{quote}
 
-To prove this property, we suppose there exists $A[t]$, such that $t > k$ and $P(t) < P(1) = k$. According to the push / pop mechanism, $A[1]$ must be the first element pushed onto the stack. Moreover, $A[t]$ must be pushed onto the stack while $A[1]$ is still at the bottom of stack in order to have $P(t) < P(1)$. But we also know that all elements before $A[t]$ must have been pushed to the stack previously, as we process the array sequentially. As we know $A[1]$ is always at the bottom of stack when these $t - 1$ elements are pushed onto stack, $A[1]$ must lie behind these $t - 1$ elements in the output, thus we have $P(1) >= t > k$, which is in contradiction with our assumption that $P(1) = k$.
+To prove this property, we suppose there exists $A[t]$, such that $t > k$ and $P(t) < P(1) = k$. According to the push / pop mechanism, $A[1]$ must be the first element pushed onto the stack. Moreover, $A[t]$ must be pushed onto the stack while $A[1]$ is still at the bottom of stack in order to have $P(t) < P(1)$. But we also know that all elements before $A[t]$ must have been pushed to the stack previously, as we process the array sequentially. As we know $A[1]$ is always at the bottom of stack when these $t - 1$ elements are pushed onto stack, $A[1]$ must lie behind these $t - 1$ elements in the output, thus we have $P(1) >= t > k$, which is in contradiction with our assumption that $P(1) = k$.\\
 
 With the above property, we can decompose the problem into the minimal value of a list of subproblems as follows:
-
 \[
-OPT(A[1..n]) = \min_{k \in [1..n-1]} \{ OPT(A[1..k]) + k \cdot A[1] + k \cdot \Sigma_{i = k + 1}^{n}A[i] + OPT(A[k+1..n]) \}
+OPT(A[1..n]) = \min_{k \in [1..n]} \{ OPT(A[1..k]) + k \cdot A[1] + k \cdot \Sigma_{i = k + 1}^{n}A[i] + OPT(A[k+1..n]) \}
 \]
 
-In the formula above, we need to add $k \cdot \Sigma_{i = k + 1}^{n}A[i]$ because the rank of each element in the optimal solution of the latter subproblem increases by $k$ in the parent problem, each generating an $k\cdot A[i]$ increase in the total cost.
+In the formula above, we need to add $k \cdot \Sigma_{i = k + 1}^{n}A[i]$ because the rank of each element in the optimal solution of the latter subproblem increases by $k$ in the parent problem, each generating an $k\cdot A[i]$ increase in the total cost.\\
 
-The algorithm is straightforward given the recurrence relation above. The algorithm calculates the optimal solutions to all possible intervals $A[i..j]$, starting from the base cases with a single element $A[i]$ and finishes at $A[1..n]$.
-
+The algorithm is straightforward given the recurrence relation above. The algorithm calculates the optimal solutions to all possible intervals $A[i..j]$, starting from the base cases with a single element $A[i]$ and finishes at $A[1..n]$.\\
 Now let's analyze its performance. There are exactly $n - i + 1$ intervals with a size of $i$. For each interval of size $i$, it has to select one optimal solution among the $i$ possible divisions of subprolems. So the total cost is:
 
 \[

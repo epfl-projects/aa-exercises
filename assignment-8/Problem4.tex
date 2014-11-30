@@ -37,7 +37,7 @@ According to the observation above, the last visited consecutive consequence is 
   \draw (10.1, 0) node {};
   \draw (11.5, 0) node[label={[label distance=0.5]below:$p_n$}] {};
 
-  \path[draw] (5, 0.2)-- (5, -0.2) -- (12, -0.2) -- (12, 0.2) -- cycle;
+  \path[draw, dashed] (5, 0.2)-- (5, -0.2) -- (12, -0.2) -- (12, 0.2) -- cycle;
 
   \draw[->, |->] (11.5, 0.7) -- (1, 0.7);
     
@@ -67,4 +67,10 @@ The algorithm is straight-forward given the recurrence relation above. The algor
 calculates the optimal solutions to all possible intervals $p_i, .., p_j$, starting from the base cases
 with a single element $p_i$ and finish at $p_1, .., p_n$.
 
-Now let's see the performance of the algorithm. Obviously, there are exactly $n - i + 1$ intervals with a size of $i$. For each interval of size $i$, it has to select one optimal solution among the $2(i-1)$ possible divisions of subprolems. So the total cost is $\Sigma_{i=1}^{n} (n - i + 1) \cdot i = O(n^3)$.
+Now let's see the performance of the algorithm. Obviously, there are exactly $n - k + 1$ intervals with the size of $k$. For each interval of size $k$, it has to select one optimal solution among the $2(k-1)$ possible divisions of subprolems. For each division of subproblems, it seems we need $k$ steps to compute the term $\Sigma_{i=1}^{k}(delay(p_n) + dist(p_i, p_n))$. However, notice that $dist(p_i, p_n) = dist(p_1, p_n) - dist(p_1, p_i)$, so we have the following:
+
+\[
+\Sigma_{i=1}^{k}(delay(p_n) + dist(p_i, p_n)) = k \cdot delay(p_n) + k \cdot dist(p_1, p_n) - \Sigma_{i=1}^{k}dist(p_1, p_i)
+\]
+
+In the equation above, both $k \cdot delay(p_n)$ and $k \cdot dist(p_1, p_n)$ can be computed in constant time. Using a memoization technique, it's easy to compute $\Sigma_{i=j}^{k}dist(p_j, p_i)$ for any interval $(p_j, p_k)$ in constant time, and the total cost is bounded by $O(n^2)$. So the summation term can be computed in constant time, and let's denote the constant as $c$. Thus the total cost is $O(n^2) + \Sigma_{i=1}^{n} (n - k + 1) \cdot 2(k - 1) \cdot c = O(n^3)$.

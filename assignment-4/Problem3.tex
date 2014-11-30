@@ -1,6 +1,6 @@
 % Quicksort as a randomized incremental construction algorithm
 
-\texttt{Quicksort} is a classical sorting algorithm with worst-case performance in $O(n)$. Let us rephrase \texttt{Quicksort} as a randomized incremental construction algorithm and prove that it achieves $O(n lg(n))$ expected performance.\\
+\texttt{Quicksort} is a classical sorting algorithm with worst-case performance in $O(n^2)$. Let us rephrase \texttt{Quicksort} as a randomized incremental construction algorithm and prove that it achieves $O(n lg(n))$ expected performance.\\
 
 We see ``pivot'' elements as forming boundaries of intervals in the array. Each processed element becomes a new pivot and thus an interval boundary. At the initial state, we have processed zero elements and the only interval is the whole array. We say an element is ``in conflict'' with an interval if it lies between its bounds. We will create intervals so that they are non-overlapping and their bounds are strictly increasing.\\
 

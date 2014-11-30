@@ -6,7 +6,7 @@ We start with the following important observation:
   \textit{No matter from which point we start the path, the last visited point must be either to the very first or the very last of the line.}
 \end{quote}
 
-SWe number the points $p_i$ from left to right on the line, such that $p_1$ is the leftmost and $p_n$ is the rightmost point. Let's denote the last visited point as $p_k$ and the start point as $p_s$.
+We number the points $p_i$ from left to right on the line, such that $p_1$ is the leftmost and $p_n$ is the rightmost point. Let's denote the last visited point as $p_k$ and the start point as $p_s$.
 
 Suppose the observation doesn't hold. Then $p_k$ lies either in the interval $(p_1, p_s)$ or $(p_s, p_n)$. Because $p_k$ lies within the two intervals, it's impossible to visit $p_1$ and $p_n$ without visiting $p_k$. Thus $p_k$ can't be the last visited point.\\
 

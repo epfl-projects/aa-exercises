@@ -14,7 +14,7 @@ OPT(A[1..n]) = \min_{k \in [1..n]} \{ OPT(A[1..k]) + k \cdot A[1] + k \cdot \Sig
 
 In the formula above, we need to add $k \cdot \Sigma_{i = k + 1}^{n}A[i]$ because the rank of each element in the optimal solution of the latter subproblem increases by $k$ in the parent problem, each generating an $k\cdot A[i]$ increase in the total cost.\\
 
-The algorithm is straightforward given the recurrence relation above. The algorithm calculates the optimal solutions to all possible intervals $A[i..j]$, starting from the base cases with a single element $A[i]$ and finishes at $A[1..n]$.\\
+The algorithm is straightforward given the recurrence relation above. The algorithm calculates the optimal solutions to all possible intervals $A[i..j]$, starting from the base cases with a single element $A[i]$ and finishing at $A[1..n]$.\\
 Now let's analyze its performance. There are exactly $n - i + 1$ intervals with a size of $i$. For each interval of size $i$, it has to select one optimal solution among the $i$ possible divisions of subprolems. So the total cost is:
 
 \[

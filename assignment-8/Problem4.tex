@@ -1,14 +1,16 @@
 % Construct a path which minimizes the delay
 
-There's one important observation no matter from which piont we start the visit:
+We start with the following important observation:
 
 \begin{quote}
-\textit{The last visited point must be either at the head or at the end.}
+  \textit{No matter from which point we start the path, the last visited point must be either to the very first or the very last of the line.}
 \end{quote}
 
-Suppose this is not the case. Let's denote the last visited point as $p_k$ and the start point as $p_s$. Then $p_k$ lies either in the interval $(p_1, p_s)$ or $(p_s, p_n)$. Because $p_k$ lies within the two intervals, it's impossible to visit $p_1$ and $p_n$ without visiting $p_k$. Thus $p_k$ can't be the last visited point.
+SWe number the points $p_i$ from left to right on the line, such that $p_1$ is the leftmost and $p_n$ is the rightmost point. Let's denote the last visited point as $p_k$ and the start point as $p_s$.
 
-Let's consider the \textit{last visited consecutive sequence}. Last visited consecutive sequence is an array of points $A[1..k]$, where:
+Suppose the observation doesn't hold. Then $p_k$ lies either in the interval $(p_1, p_s)$ or $(p_s, p_n)$. Because $p_k$ lies within the two intervals, it's impossible to visit $p_1$ and $p_n$ without visiting $p_k$. Thus $p_k$ can't be the last visited point.\\
+
+Let us now consider the \textit{last visited consecutive sequence}. Last visited consecutive sequence is an array of points $A[1..k]$, where:
 
 \begin{enumerate}
 \item $A[i]$ and $A[i+1]$ are neighbors on the line
@@ -16,7 +18,7 @@ Let's consider the \textit{last visited consecutive sequence}. Last visited cons
 \item $A[k]$ is the last visited point
 \end{enumerate}
 
-According to the observation above, the last visited consecutive consequence is either like $p_k, p_{k-1}, .., p_1$ or like $p_{k+1}, .., p_n$. Suppose the last visited consecutive sequence is at the head, let's visualize what it looks like:\\\\
+According to the observation above, the last visited consecutive consequence is either like $p_k, p_{k-1}, .., p_1$ or like $p_{k+1}, .., p_n$. Suppose the last visited consecutive sequence ends to the left. Let's visualize what it looks like:\\
 
 % Define style for nodes
 \tikzstyle{every node}=[circle, draw, fill=black!50,
@@ -40,37 +42,37 @@ According to the observation above, the last visited consecutive consequence is 
   \path[draw, dashed] (5, 0.2)-- (5, -0.2) -- (12, -0.2) -- (12, 0.2) -- cycle;
 
   \draw[->, |->] (11.5, 0.7) -- (1, 0.7);
-    
+
 \end{tikzpicture}\quad
 
-In the graph above, $p_k, .., p_2, p_1$ is the last visited consecutive sequence. Then what we can say about the last visited point in $p_{k+1}, .., p_n$? Based on previous observation, we know either $p_{k+1}$ or $p_n$ must be the last visited point. However, if $p_{k+1}$ is the last visited point, we can grow our last visited consecutive sequence $p_k, .., p_2, p_1$ by $p_{k+1}$. Thus, we can conclude:
+In the graph above, $p_k, .., p_2, p_1$ is the last visited consecutive sequence. Then what can we say about the most recently visited point in the subpath $p_{k+1}, .., p_n$? Based on the previous observation, we know that either $p_{k+1}$ or $p_n$ must be the last visited point. However, if $p_{k+1}$ is the last visited point, we can grow our last visited consecutive sequence $p_k, .., p_2, p_1$ by $p_{k+1}$. Thus, we can conclude:
 
 \begin{quote}
 \textit{If $p_k, .., p_2, p_1$ is the last visited consecutive sequence, then the last visited point in $p_{k+1}, .., p_n$ is $p_n$.}
 \end{quote}
 
-With the property above, if we are given the optimal solution to the subproblem $p_{k+1}, .., p_n$, then a possible solution to the outer big problem can be constructed by adding the delay of each point in the last visited consecutive sequence. As we know the last visited point in the subproblem is $p_n$, so for each point $p_i$ in the last visited consecutive sequence, its delay is $delay(p_n) + dist(p_i, p_n)$.
+With the property above, if we are given the optimal solution to the subproblem $p_{k+1}, .., p_n$, then a possible solution to the overall problem can be constructed by adding the delay of each point in the last visited consecutive sequence. As we know the last visited point in the subproblem is $p_n$, so for each point $p_i$ in the last visited consecutive sequence, its delay is $delay(p_n) + dist(p_i, p_n)$.
 
-Similar arguments hold as well if the \textit{last visited consecutive consequence} is at the end of the array. Then we can decouple the problem into subproblems using following recurrence relation:
+Similar arguments hold as well if the \textit{last visited consecutive consequence} is at the end of the array. Then we can decompose the problem into subproblems using following recurrence relation:
 
 \[
-OPT(p_1, p_2, .., p_n) = min \left\{
+OPT(p_1, p_2, .., p_n) = \min_{k \in [1..n]} \left\{
   \begin{array}{ll}
-    OPT(p_{k+1}, .., p_n) + \Sigma_{i=1}^{k}(delay(p_n) + dist(p_i, p_n)) & Case 1 \\
-    OPT(p_1, p_2, .., p_k) + \Sigma_{i=k+1}^{n}(delay(p_1) + dist(p_i, p_1)) & Case 2 \\
+    OPT(p_{k+1}, .., p_n) + \sum_{i=1}^{k}(delay(p_n) + dist(p_i, p_n)) & Case 1 \\
+    OPT(p_1, p_2, .., p_k) + \sum_{i=k+1}^{n}(delay(p_1) + dist(p_i, p_1)) & Case 2 \\
   \end{array}\right.
 \]
 
 In \textit{Case 1}, the last visited consecutive sequence is at the head of the array. In \textit{Case 2}, the last visited consecutive sequence is at the end of the array.
 
-The algorithm is straight-forward given the recurrence relation above. The algorithm
-calculates the optimal solutions to all possible intervals $p_i, .., p_j$, starting from the base cases
-with a single element $p_i$ and finish at $p_1, .., p_n$.
+Given the recurrence relation above, the algorithm is straightforward. It computes the optimal solutions to all possible intervals $p_i, .., p_j$, starting from the base cases with a single element $p_i$ and finishing at $p_1, .., p_n$.\\
 
-Now let's see the performance of the algorithm. Obviously, there are exactly $n - k + 1$ intervals with the size of $k$. For each interval of size $k$, it has to select one optimal solution among the $2(k-1)$ possible divisions of subprolems. For each division of subproblems, it seems we need $k$ steps to compute the term $\Sigma_{i=1}^{k}(delay(p_n) + dist(p_i, p_n))$. However, notice that $dist(p_i, p_n) = dist(p_1, p_n) - dist(p_1, p_i)$, so we have the following:
-
+Now let's see the performance of the algorithm. There are exactly $n - k + 1$ intervals with size $k$. For each interval of size $k$, it has to select one optimal solution among the $2(k-1)$ possible divisions of subprolems. For each division of subproblems, it seems we need $k$ steps to compute the term $\sum_{i=1}^{k}(delay(p_n) + dist(p_i, p_n))$. However, notice that $dist(p_i, p_n) = dist(p_1, p_n) - dist(p_1, p_i)$, so we have the following:
 \[
-\Sigma_{i=1}^{k}(delay(p_n) + dist(p_i, p_n)) = k \cdot delay(p_n) + k \cdot dist(p_1, p_n) - \Sigma_{i=1}^{k}dist(p_1, p_i)
+\sum_{i=1}^{k}(delay(p_n) + dist(p_i, p_n)) = k \cdot delay(p_n) + k \cdot dist(p_1, p_n) - \sum_{i=1}^{k}dist(p_1, p_i)
 \]
 
-In the equation above, both $k \cdot delay(p_n)$ and $k \cdot dist(p_1, p_n)$ can be computed in constant time. Using a memoization technique, it's easy to compute $\Sigma_{i=j}^{k}dist(p_j, p_i)$ for any interval $(p_j, p_k)$ in constant time, and the total cost is bounded by $O(n^2)$. So the summation term can be computed in constant time, and let's denote the constant as $c$. Thus the total cost is $O(n^2) + \Sigma_{i=1}^{n} (n - k + 1) \cdot 2(k - 1) \cdot c = O(n^3)$.
+In the equation above, both $k \cdot delay(p_n)$ and $k \cdot dist(p_1, p_n)$ can be computed in constant time. Using a memoization technique, it's easy to compute $\sum_{i=j}^{k}dist(p_j, p_i)$ for any interval $(p_j, p_k)$ in constant time, and the total cost is bounded by $O(n^2)$. So the summation term can be computed in constant time, and let's denote the constant as $c$. Thus the total cost is in:
+\[
+  O(n^2) + \sum_{i=1}^{n} (n - k + 1) \cdot 2(k - 1) \cdot c = O(n^3)
+\]
